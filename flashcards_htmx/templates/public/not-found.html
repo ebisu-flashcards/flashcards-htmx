@@ -1,14 +1,22 @@
-{% extends "base.html" %}
+{% extends "public/base.html" %}
 
 
 {% block style%}
-<link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet">
+<link href="/static/css/login.css" rel="stylesheet">
 {% endblock %}
 
 
 
 {% block body %}
 <body class="small">
+
+
+<div class="home-link">
+  <a href="{{ url_for('home') }}">
+    <i class="fas fa-fish"></i>
+  </a>
+</div>
+  
 
 <main class="wrapper">
 

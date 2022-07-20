@@ -47,6 +47,24 @@ input {
     width: 80%;
 }
 
+.home-link a {
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin: 0;
+    border: 0;
+    transition: none;
+}
+
+.home-link a:hover {
+  filter: brightness(100%);
+}
+
+.home-link > a > svg {
+  font-size: 3rem;
+  transform: rotate(-15deg);
+}
+
 /* ****************** Firefox hack :( *************************** */
 :not(output):-moz-ui-invalid:not(:focus) {
     box-shadow: none;

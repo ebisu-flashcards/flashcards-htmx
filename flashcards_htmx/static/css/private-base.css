@@ -32,3 +32,13 @@ nav > .logout {
 nav > .logout > a {
     background-color: var(--danger);
 }
+
+a.borderless {
+    margin: 0;
+    border: 0;
+    transition: none;
+}
+
+a.borderless:hover {
+  filter: brightness(100%);
+}
