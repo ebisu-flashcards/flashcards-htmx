@@ -34,7 +34,6 @@ jobs:
         cd docs/
         make html
         cd build/html/
-        generate-redoc
         cd ../../../
         
         git checkout gh-pages

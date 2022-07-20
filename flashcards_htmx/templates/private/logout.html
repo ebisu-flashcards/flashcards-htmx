@@ -1,0 +1,15 @@
+<html>
+<head>
+  <noscript>
+      <meta http-equiv="refresh" content="0; url={{ url_for('static') }}" />
+  </noscript>
+  <script>
+      window.localStorage.removeItem('token');
+      //window.location.replace("/");
+      window.addEventListener('load', function(event) {
+          // all resources finished loading
+          window.location = "{{ url_for('static') }}";
+      });
+  </script>
+</head>
+</ht

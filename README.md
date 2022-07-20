@@ -16,7 +16,7 @@ familiar with Python and HTMX.
 > source venv/bin/activate
 > pip install -e .[dev]
 > pre-commit install
-> uvicorn flashcards_htmx.app:app --reload   # or python flashcards_server/main.py
+> uvicorn flashcards_htmx.app:app --reload   # or python flashcards_htmx/main.py
 INFO:     Started server process [XXXX]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
