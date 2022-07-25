@@ -8,9 +8,9 @@
 
 
 {% block js %}
-<script src="{{ url_for('static', filename='js/base.js') }}"></script>
-<script src="{{ url_for('static', filename='js/study-ui.js') }}"></script>
-<script src="{{ url_for('static', filename='js/study-ajax.js') }}"></script>
+<script src="/static/js/base.js"></script>
+<script src="/static/js/study-ui.js"></script>
+<script src="/static/js/study-ajax.js"></script>
 {% endblock %}
 
 
@@ -18,7 +18,7 @@
 
 <section>
 
-    <div id="loading">{% include "loading.html"%}</div>
+    <div id="loading">{% include "components/loading.html"%}</div>
 
 
     <div id="card" class="card hidden">    
@@ -59,7 +59,7 @@
         <h1>No Cards!</h1>
         <p>Seems like you have no cards to review.<br><br>
            Some deck types have limits on the cards to review for specific timespans:
-           check your deck configuration, and make sure your deck contains any card.
+           check your deck settings and make sure your deck contains cards.
         </p>
     </div>
 
@@ -67,7 +67,7 @@
         <h1>Server Error!</h1>
         <p>Seems like something went wrong on our servers.<br><br>
            Please retry in a few minutes and, if the problem persists, contact the developers. It's a bug!</p>
-        <a href="{{ url_for('home') }}">Go Back</a>
+        <a href="{{ url_for('home_page') }}">Go Back</a>
     </div>
 
 </section>

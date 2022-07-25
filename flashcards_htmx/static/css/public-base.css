@@ -118,7 +118,7 @@ input[type=submit]:disabled {
 
 .loading svg {
   font-size: 30pt;
-  transform: rotate(-20deg);
+  transform: rotate(-25deg);
   animation: pulse;
   animation-duration: 4s;
   animation-iteration-count: infinite;

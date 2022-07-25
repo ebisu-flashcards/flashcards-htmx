@@ -12,7 +12,7 @@
 
 
 <div class="home-link">
-  <a href="{{ url_for('home') }}">
+  <a href="{{ url_for('landing_page') }}">
     <i class="fas fa-fish"></i>
   </a>
 </div>
@@ -20,7 +20,7 @@
 
 <main class="wrapper">
 
-  <form id="login" method="POST" action="{{ url_for('login') }}">
+  <form id="login" method="POST" action="{{ url_for('login_page') }}">
     <h1>Login</h1>
 
     <div><input type="text" name="username" placeholder="Username" aria-describedby="usernameHelp" required></div>
@@ -30,8 +30,8 @@
   </form>
 
   <footer>
-    <a href="{{ url_for('reset_password') }}">Forgot Password?</a>
-    <a href="{{ url_for('signup') }}">Create an Account!</a>
+    <a href="{{ url_for('reset_password_page') }}">Forgot Password?</a>
+    <a href="{{ url_for('signup_page') }}">Create an Account!</a>
   </footer>
 
 </main>

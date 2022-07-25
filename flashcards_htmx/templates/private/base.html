@@ -13,18 +13,15 @@
 
   <nav>
 
-    {% if navbar_home %}
-      <div>
-        <a href="{{ url_for('home') }}">Home</a>  
-      </div>
-    <h1 class="center">{{navbar_title}}</h1>
-  
-    {% else %}
-      <h1>{{navbar_title}}</h1>
-    {% endif %}
-  
+    <div class="homepage-link">
+      <a href="{{ url_for('home_page') }}">
+        <i class="fas fa-fish"></i>
+      </a>
+      <h1>{{ navbar_title }}</h1>
+    </div>
+    
     <div class="logout">
-      <a href="{{ url_for('logout') }}">Logout</a>  
+      <a href="{{ url_for('logout_page') }}">Logout</a>  
     </div>
   </nav>
 
@@ -34,7 +31,7 @@
   </div>
 
   <footer>
-    <p>&copy; Ebisu Flashcards 2020. Made with ❤ and CSS Grid.</p>
+    <p>&copy; Ebisu Flashcards 2022 - {{ this_year }}. Made with FastAPI and HTMX.</p>
   </footer>
 
 </main>

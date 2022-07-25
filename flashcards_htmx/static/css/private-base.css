@@ -42,3 +42,23 @@ a.borderless {
 a.borderless:hover {
   filter: brightness(100%);
 }
+
+.homepage-link {
+    display: grid;
+    align-items: center;
+    grid-template-columns: min-content auto;
+}
+
+.homepage-link a{
+    color: var(--blue);
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+}
+
+.homepage-link .fa-fish {
+    z-index: 100;
+    margin: 0 1.25rem;
+    font-size: 2rem;
+    transform: rotate(-25deg);
+}

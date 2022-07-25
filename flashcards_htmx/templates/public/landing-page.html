@@ -13,8 +13,8 @@
 
   <section class="banner">
     <nav>
-        <a href="{{ url_for('login') }}" class="borderless">Login</a>
-        <a href="{{ url_for('signup') }}">Signup</a>
+        <a href="{{ url_for('login_page') }}" class="borderless">Login</a>
+        <a href="{{ url_for('signup_page') }}">Signup</a>
     </nav>
 
     <div class="logo">
@@ -59,7 +59,7 @@
   </section>
 
   <footer>
-    <p>&copy; Flashcards 2022. Made with FastAPI and HTMX.</p>
+    <p>&copy; Flashcards 2022 - {{ this_year() }}. Made with FastAPI and HTMX.</p>
   </footer>
 </main>
 

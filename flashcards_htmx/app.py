@@ -1,11 +1,19 @@
+import typing
+
 from pathlib import Path
+from datetime import datetime
 import importlib.metadata
 
+from jinja2 import Environment, contextfunction
+from jinja2.loaders import PackageLoader
+from fastapi import Request, Depends
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 
 __version__ = importlib.metadata.version('flashcards_htmx')
+
 
 
 # Create the FastAPI app
@@ -14,27 +22,43 @@ app = FastAPI(
     description="API Docs for flashcards-htmx",
     version=__version__,
 )
-
-
+#templates = Jinja2Templates(directory=Path(__file__).parent / "templates" / "public")
 app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
 
 
-from flashcards_htmx.router import router  # noqa: F401, E402
-app.include_router(router)
 
-# from flashcards_htmx.api.algorithms import (  # noqa: F401, E402
-#     router as algorithms_router,
-# )
-# from flashcards_htmx.api.cards import router as cards_router  # noqa: F401, E402
-# from flashcards_htmx.api.decks import router as decks_router  # noqa: F401, E402
-# from flashcards_htmx.api.facts import router as facts_router  # noqa: F401, E402
-# from flashcards_htmx.api.tags import router as tags_router  # noqa: F401, E402
-# from flashcards_htmx.api.study import router as study_router  # noqa: F401, E402
+def get_jinja2():
+    """ Get Jinja2 dependency function. you can define more functions, filters or global vars here """
+    @contextfunction
+    def url_for(context: dict, name: str, **path_params: typing.Any) -> str:
+        request = context["request"]
+        return request.url_for(name, **path_params)
 
-# app.include_router(algorithms_router)
-# app.include_router(cards_router)
-# app.include_router(decks_router)
-# app.include_router(facts_router)
-# app.include_router(tags_router)
-# app.include_router(study_router)
+    env = Environment(loader=PackageLoader("flashcards_htmx"), autoescape=True)
+    env.globals["url_for"] = url_for
+    env.globals["this_year"] = lambda: datetime.utcnow().year
+
+    return env
+
+
+def template(tpl : str):
+    """ Get view render function using Jinja2 environment injected above """
+    def func_view(request: Request, env : Environment = Depends(get_jinja2)):
+        template = env.get_template(tpl)
+        def render(*args, **kwargs):
+            return template.render(request=request, *args, **kwargs)
+        return render
+    return func_view
+
+
+
+from flashcards_htmx.public_pages import router as public_router # noqa: F401, E402
+from flashcards_htmx.private_pages import router as private_router # noqa: F401, E402
+from flashcards_htmx.private_components import router as private_components # noqa: F401, E402
+
+app.include_router(public_router)
+app.include_router(private_router)
+app.include_router(private_components)
+
+
 

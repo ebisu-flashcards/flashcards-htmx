@@ -8,17 +8,17 @@
 
 
 {% block js %}
-<script src="{{ url_for('static', filename='js/base.js') }}"></script>
-<script src="{{ url_for('static', filename='js/boxes-ajax.js') }}"></script>
-<script src="{{ url_for('static', filename='js/boxes-rendering.js') }}"></script>
-<script src="{{ url_for('static', filename='js/boxes-ui.js') }}"></script>
-<script src="{{ url_for('static', filename='js/edit.js') }}"></script>
+<script src="/static/js/base.js"></script>
+<script src="/static/js/boxes-ajax.js"></script>
+<script src="/static/js/boxes-rendering.js"></script>
+<script src="/static/js/boxes-ui.js"></script>
+<script src="/static/js/edit.js"></script>
 {% endblock %}
 
 
 {% block page %}
 
-<div id="loading">{% include "loading.html"%}</div>
+<div id="loading">{% include "components/loading.html"%}</div>
 
 <section id="boxes-container">
 
