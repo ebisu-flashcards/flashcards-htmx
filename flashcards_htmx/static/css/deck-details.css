@@ -1,0 +1,91 @@
+/*----------------------------------------------------------------------------*/
+/*     Deck Details Styles
+/*----------------------------------------------------------------------------*/
+
+section {
+    padding: 2rem min(2rem, 3%);
+    text-align: center;
+}
+
+.box {
+    max-width: 500px;
+    margin: auto;
+    padding: 2rem min(2rem, 3%);
+    
+    border: 1px solid var(--gray);
+    border-radius: 1rem;
+    box-shadow: 5px 5px var(--dark-gray);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.box p {
+    color: var(--dark-gray);
+    border-bottom: 1px dashed var(--gray);
+    margin:0;
+    padding: 2rem;
+    font-size: 1.3rem;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*      Deck Form Styles
+/*----------------------------------------------------------------------------*/
+
+#deck-name-form {
+    color: black;
+    background-color: #eee;
+    text-align: unset;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    text-transform: uppercase;
+    display:block;
+    margin: 0;
+    padding: 0.5rem;
+    border: 0;
+    border-bottom: 1px dashed var(--dark-gray);
+    width: 95%;
+}
+
+#deck-desc-form,
+#extra-fields input[type="text"] {
+    color: var(--dark-gray);
+    background-color: #eee;
+    text-align: unset;
+    font-style: italic;
+    display:block;
+    margin: 0.75rem 0;
+    padding: 0.5rem;
+    border: 0;
+    width: 95%;
+}
+
+
+/*----------------------------------------------------------------------------*/
+/*    Extra Fields form styles
+/*----------------------------------------------------------------------------*/
+
+/* The box around the entry */
+#extra-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.inline-entry p {
+  grid-column: 1/2;
+}
+
+/* Hide default HTML checkbox (for toggles) */
+.inline-entry input {
+  grid-column: 2/3;
+}
+
+div.toggle {
+    grid-column: 2/3;
+}
+p.toggle {
+    grid-column: 1/2;
+}

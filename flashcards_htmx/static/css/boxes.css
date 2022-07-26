@@ -1,19 +1,7 @@
-/*----------------------------------------------------------------------------*/
-/*     Container Styles
-/*----------------------------------------------------------------------------*/
-
-section {
-    padding: min(2rem, 3%);
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    grid-column-gap: 3vw;
-    grid-row-gap: 3vh;
-}
 
 /*----------------------------------------------------------------------------*/
 /*     Box Styles
 /*----------------------------------------------------------------------------*/
-
 
 .box {
     max-width: min(500px, 75vw);
@@ -45,7 +33,7 @@ section {
 .box h1 {
     color: black;
     background-color: transparent;
-    text-align: unset;
+    /* text-align: unset; */
     font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;

@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import starlette.status as status
 from fastapi import APIRouter, Request, Depends
 from fastapi.responses import HTMLResponse, RedirectResponse

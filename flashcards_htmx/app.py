@@ -15,16 +15,13 @@ from fastapi.templating import Jinja2Templates
 __version__ = importlib.metadata.version('flashcards_htmx')
 
 
-
 # Create the FastAPI app
 app = FastAPI(
     title="Flashcards HTMX webserver",
     description="API Docs for flashcards-htmx",
     version=__version__,
 )
-#templates = Jinja2Templates(directory=Path(__file__).parent / "templates" / "public")
 app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static")
-
 
 
 def get_jinja2():
@@ -36,7 +33,7 @@ def get_jinja2():
 
     env = Environment(loader=PackageLoader("flashcards_htmx"), autoescape=True)
     env.globals["url_for"] = url_for
-    env.globals["this_year"] = lambda: datetime.utcnow().year
+    env.globals["this_year"] = datetime.utcnow().year
 
     return env
 

@@ -1,0 +1,9 @@
+<div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
+	<div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content box">
+		<h1>{{ title }}</h1>
+		<p>{{ content }}</p>
+		<button class="positive" _="on click trigger closeModal">Yes</button>
+		<button class="negative" _="on click trigger closeModal">No! Don't delete the deck!</button>
+	</div>
+</div>
