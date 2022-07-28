@@ -1,9 +1,6 @@
-{% for deck in decks %}
-
-<div id="box-template" class="box">
-    {% include "components/deck_home_show.html" %}
-</div>
-
-{% endfor %}
-
-{% include "components/new_deck.html"%}
+<section id="boxes-container">
+    {% for deck in decks %}
+        {% include "components/deck.html" %}
+    {% endfor %}
+    {% include "components/new_deck.html"%}
+</section>

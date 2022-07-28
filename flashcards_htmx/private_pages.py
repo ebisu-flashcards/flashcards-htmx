@@ -23,18 +23,18 @@ async def study_page(deck_id: str, render = Depends(template('private/study.html
 		
 
 @router.get("/edit/{deck_id}/details", response_class=HTMLResponse)
-async def edit_deck_page(deck_id: str, render = Depends(template('private/edit_deck.html'))):
+async def edit_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
 	return render(navbar_title=f"{deck_id}")
 		
 
 @router.post("/edit/{deck_id}/details", response_class=HTMLResponse)
-async def save_deck_page(deck_id: str, render = Depends(template('private/edit_deck.html'))):
+async def save_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
 	# FIXME save the deck data!!
 	return render(navbar_title=f"{deck_id}")
 		
 
 @router.get("/edit/{deck_id}/cards", response_class=HTMLResponse)
-async def edit_cards_page(deck_id: str, render = Depends(template('private/edit_cards.html'))):
+async def edit_cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
 	return render(navbar_title=f"{deck_id}")
 
 

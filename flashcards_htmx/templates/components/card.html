@@ -1,0 +1,28 @@
+<div class="box">
+    <div class="static-info">
+
+        <div class="question">
+            <p>---</p>
+        </div>
+        <div class="answer">
+            <p>---</p>
+        </div>
+
+        <div class="buttons">
+            <button class="neutral" type="button" onclick="showFormInDOM('_box_id_')">Edit</button>
+        </div>
+
+    </div>
+
+    <form class="hidden">
+        <div>
+            <div class="question-form"></div>
+            <div class="answer-form"></div>
+        </div>
+        <div class="buttons">
+            <button type="button" class="positive" onclick="updateCard('_box_id_')">Save</button>
+            <button type="button" class="neutral" onclick="hideFormInDOM('_box_id_')">Cancel</button>
+            <button type="button" class="negative" onclick="deleteCard('_box_id_')">Delete</button>
+        </div>
+    </form>
+</div>
