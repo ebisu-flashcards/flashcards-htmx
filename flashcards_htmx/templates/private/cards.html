@@ -6,8 +6,11 @@
 <link href="/static/css/home.css" rel="stylesheet">
 {% endblock %}
 
-{% block page %}
+{% block navbar_buttons %}
+<a class="create" href="{{ url_for('edit_card_page', deck_id='[deck_id]', card_id=None) }}">+ New Card...</a>
+{% endblock %}
 
+{% block page %}
 <div hx-get="{{ url_for('cards_component', deck_id='[deck_id]') }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}
 </div>

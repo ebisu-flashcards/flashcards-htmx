@@ -1,0 +1,23 @@
+{% extends "private/base.html" %}
+
+
+{% block css%}
+<link href="/static/css/boxes.css" rel="stylesheet">
+<link href="/static/css/home.css" rel="stylesheet">
+{% endblock %}
+
+{% block page %}
+<section>
+    <div class="box">
+        <h1>My Profile</h1>
+
+        <p>Username</p>
+        <p>Decks number</p>
+        <p>Cards Number</p>
+        <p>Study Statistics</p>
+
+        <a href="#">Change Password</a>
+        <a class="danger" href="#">Delete Account</a>
+    </div>
+</section>
+{% endblock %}

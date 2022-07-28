@@ -68,8 +68,9 @@ input[type=submit] {
   background-color: var(--blue);
   text-decoration: none;
   color: white;
-  border: 1px solid white;
+  border: none;
   border-radius: .5rem;
+  box-shadow: 3px 3px var(--dark-gray);
   text-align: center;
   display: inline-block;
   transition: all .3s;
@@ -81,6 +82,7 @@ button:hover,
 input[type=submit]:hover  {
   color: white;  /* if not specified, will get back blue */
   filter: brightness(120%);
+  box-shadow: 3px 3px var(--black);
 }
 
 a[disabled],
@@ -88,6 +90,10 @@ button:disabled,
 input[type=submit]:disabled {
   pointer-events: none;  /* to make <a>s unclickable  */
   background-color: var(--gray) !important;
+}
+
+.bordered {
+  border: 1px solid var(--white);
 }
 
 /*----------------------------------------------------------------------------*/

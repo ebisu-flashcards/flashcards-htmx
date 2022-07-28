@@ -25,12 +25,25 @@ nav > h1.center {
     text-align: center;
 }
 
-nav > .logout {
-    text-align: right;
+nav .navbar-buttons {
+    display: flex;
+    justify-self: right;
+    gap: 1rem;
 }
 
-nav > .logout > a {
+nav .navbar-buttons .logout {
+    text-align: right;
     background-color: var(--danger);
+}
+
+nav .navbar-buttons .create {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--black);
+    border: 1px dashed var(--black);
+    background-color: transparent;
+    font-style: italic;
 }
 
 a.borderless {
@@ -54,6 +67,7 @@ a.borderless:hover {
     background-color: transparent;
     margin: 0;
     padding: 0;
+    box-shadow: none;
 }
 
 .homepage-link .fa-fish {

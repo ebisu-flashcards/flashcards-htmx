@@ -17,24 +17,34 @@ async def home_page(render = Depends(template('private/home.html'))):
 	return render(navbar_title="Home")
 
 
+@router.get("/profile", response_class=HTMLResponse)
+async def profile_page(render = Depends(template('private/profile.html'))):
+	return render(navbar_title="My name")
+
+
 @router.get("/study/{deck_id}", response_class=HTMLResponse)
 async def study_page(deck_id: str, render = Depends(template('private/study.html'))):
 	return render(navbar_title=f"{deck_id}")
 		
 
-@router.get("/edit/{deck_id}/details", response_class=HTMLResponse)
+@router.get("/decks/{deck_id}", response_class=HTMLResponse)
 async def edit_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
 	return render(navbar_title=f"{deck_id}")
 		
 
-@router.post("/edit/{deck_id}/details", response_class=HTMLResponse)
-async def save_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
+@router.post("/decks/{deck_id}", response_class=RedirectResponse)
+async def save_deck_endpoint(deck_id: str, request: Request):
 	# FIXME save the deck data!!
-	return render(navbar_title=f"{deck_id}")
+	return RedirectResponse(request.url_for('home_page'), status_code=status.HTTP_302_FOUND)
 		
 
-@router.get("/edit/{deck_id}/cards", response_class=HTMLResponse)
-async def edit_cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
+@router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
+async def cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
+	return render(navbar_title=f"{deck_id}")
+
+
+@router.get("/decks/{deck_id}/cards/{card_id}", response_class=HTMLResponse)
+async def cards_page(deck_id: str, render = Depends(template('private/card.html'))):
 	return render(navbar_title=f"{deck_id}")
 
 

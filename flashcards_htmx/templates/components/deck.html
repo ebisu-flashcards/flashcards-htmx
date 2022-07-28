@@ -1,12 +1,16 @@
 <div class="box">
     <div>
-        <h1 class="deck-name">Deck Name</h1>
+        <div class="title">
+            <h1 class="deck-name">Deck Name</h1>
+            <a class="edit" href="{{ url_for('edit_deck_page', deck_id='[deck_id]') }}">
+                <i class="fas fa-edit"></i>
+            </a>
+        </div>
         <p class="deck-desc">This is it.</p>
         <p class="deck-type">Algorithm</p>
     </div>
     <div class="buttons">
-        <a class="positive" href="study/[deck_id]">Study</a>
-        <a class="neutral" href="edit/[deck_id]/details">Edit</a>
-        <a class="neutral" href="edit/[deck_id]/cards">Browse</a>
+        <a class="positive" href="{{ url_for('study_page', deck_id='[deck_id]') }}">Study</a>
+        <a class="neutral" href="{{ url_for('cards_page', deck_id='[deck_id]') }}">Browse</a>
     </div>
 </div>

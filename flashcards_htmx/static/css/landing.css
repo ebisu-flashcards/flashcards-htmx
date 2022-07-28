@@ -23,6 +23,7 @@
 .banner > nav > a {
     padding: 1rem 1.5rem;
     margin: 1rem 0.5rem;
+    box-shadow: none;
 }
 
 .banner > nav > a.borderless {

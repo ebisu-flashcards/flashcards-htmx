@@ -19,10 +19,14 @@
       </a>
       <h1>{{ navbar_title }}</h1>
     </div>
-    
-    <div class="logout">
-      <a href="{{ url_for('logout_page') }}">Logout</a>  
+
+    <div class="navbar-buttons">
+      {% block navbar_buttons %}
+      {% endblock %}
+      <a href="{{ url_for('profile_page') }}">My Name</a>  
+      <a class="logout" href="{{ url_for('logout_page') }}">Logout</a>  
     </div>
+
   </nav>
 
   <div id="stretched">
