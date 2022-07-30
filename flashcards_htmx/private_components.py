@@ -20,7 +20,7 @@ async def decks_component(render = Depends(template('responses/decks.html'))):
 
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
 async def cards_component(deck_id: str, render = Depends(template('responses/cards.html'))):
-	return render(cards=range(4))
+	return render(cards=range(20))
 
 
 

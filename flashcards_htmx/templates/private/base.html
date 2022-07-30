@@ -10,7 +10,6 @@
 
 {% block body %}
 <main class="wrapper">
-
   <nav>
 
     <div class="homepage-link">
@@ -23,8 +22,12 @@
     <div class="navbar-buttons">
       {% block navbar_buttons %}
       {% endblock %}
-      <a href="{{ url_for('profile_page') }}">My Name</a>  
-      <a class="logout" href="{{ url_for('logout_page') }}">Logout</a>  
+      <a href="{{ url_for('profile_page') }}">
+        <i class="fas fa-user"></i>&nbsp; My Name
+      </a>
+      <a class="logout" href="{{ url_for('logout_page') }}">
+        <i class="fas fa-sign-out-alt"></i>&nbsp; Logout
+      </a>  
     </div>
 
   </nav>

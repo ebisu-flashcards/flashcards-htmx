@@ -6,8 +6,11 @@
 <link href="/static/css/widgets.css" rel="stylesheet">
 {% endblock %}
 
-{% block page %}
+{% block navbar_buttons %}
+<a href="{{ url_for('home_page') }}">Back</a>
+{% endblock %}
 
+{% block page %}
 <section>
 
     <div id="loading">{% include "components/loading.html"%}</div>

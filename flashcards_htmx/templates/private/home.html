@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block navbar_buttons %}
-<a class="create" href="{{ url_for('edit_deck_page', deck_id=None) }}">+ New Deck...</a>
+<a class="create" href="{{ url_for('edit_deck_page', deck_id=None) }}">
+    <i class="fas fa-plus"></i>&nbsp;  New Deck...
+</a>
 {% endblock %}
 
 {% block page %}

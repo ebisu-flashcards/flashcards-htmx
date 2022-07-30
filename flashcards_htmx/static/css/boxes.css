@@ -1,3 +1,23 @@
+/*----------------------------------------------------------------------------*/
+/*     Container Styles
+/*----------------------------------------------------------------------------*/
+
+section {
+    padding: min(2rem, 3%);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-column-gap: 3vw;
+    grid-row-gap: 3vh;
+}
+
+section.cards {
+    padding: min(2rem, 3%);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-column-gap: 1vw;
+    grid-row-gap: 2vh;
+}
+
 
 /*----------------------------------------------------------------------------*/
 /*     Box Styles

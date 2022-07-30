@@ -44,7 +44,7 @@ async def cards_page(deck_id: str, render = Depends(template('private/cards.html
 
 
 @router.get("/decks/{deck_id}/cards/{card_id}", response_class=HTMLResponse)
-async def cards_page(deck_id: str, render = Depends(template('private/card.html'))):
+async def edit_card_page(deck_id: str, render = Depends(template('private/card.html'))):
 	return render(navbar_title=f"{deck_id}")
 
 
