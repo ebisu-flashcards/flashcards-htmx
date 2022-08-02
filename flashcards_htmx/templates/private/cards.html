@@ -11,6 +11,7 @@
 {% endblock %}
 
 {% block page %}
+<h1 class="box" style="text-align: center;">Search box + pagination goes here</h1>
 <div hx-get="{{ url_for('cards_component', deck_id='[deck_id]') }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}
 </div>

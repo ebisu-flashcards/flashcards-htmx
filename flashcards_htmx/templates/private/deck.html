@@ -9,8 +9,8 @@
 
 
 {% block page %}
-<section>
-    <div class="box">  
+<section id="single-card">
+    <div class="box main-card">  
         
         <form action="{{ url_for('save_deck_endpoint', deck_id='[deck_id]') }}" method="post">
             <div>
@@ -23,7 +23,7 @@
             <div class="buttons">
                 <button type="submit" class="positive">Save</button>
                 <a href="{{ url_for('home_page') }}" class="neutral">Cancel</a>
-                {% if deck_id %}
+                {% if deck_id != "new" %}
                 <button type="button" class="negative" hx-get="{{ url_for('deck_confirm_delete_component', deck_id='[deck_id]') }}" hx-target="body" hx-swap="beforeend">Delete</button>
                 {% endif %}
             </div>

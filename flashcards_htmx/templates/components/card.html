@@ -2,27 +2,14 @@
     <div class="static-info">
 
         <div class="question">
-            <p>---</p>
+            <p>Question</p>
         </div>
         <div class="answer">
-            <p>---</p>
+            <p>Answer</p>
         </div>
 
         <div class="buttons">
-            <button class="neutral" type="button" onclick="showFormInDOM('_box_id_')">Edit</button>
+            <a href="{{ url_for('edit_card_page', deck_id='[deck_id]', card_id='[card_id]') }}">Edit</a>
         </div>
-
     </div>
-
-    <form class="hidden">
-        <div>
-            <div class="question-form"></div>
-            <div class="answer-form"></div>
-        </div>
-        <div class="buttons">
-            <button type="button" class="positive" onclick="updateCard('_box_id_')">Save</button>
-            <button type="button" class="neutral" onclick="hideFormInDOM('_box_id_')">Cancel</button>
-            <button type="button" class="negative" onclick="deleteCard('_box_id_')">Delete</button>
-        </div>
-    </form>
 </div>

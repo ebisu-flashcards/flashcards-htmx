@@ -39,3 +39,11 @@ async def deck_confirm_delete_component(deck_id: str, render = Depends(template(
 	)
 
 
+@router.get("/decks/{deck_id}/cards/{card_id}/confirm-delete", response_class=HTMLResponse)
+async def deck_confirm_delete_component(deck_id: str, card_id: str, render = Depends(template('components/confirm_modal.html'))):
+	return render(
+		title=f"Deleting {card_id}", 
+		content=f"Are you really sure you wanna delete this card?"
+	)
+
+

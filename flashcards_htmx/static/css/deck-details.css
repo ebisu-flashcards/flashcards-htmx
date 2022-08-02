@@ -1,36 +1,4 @@
 /*----------------------------------------------------------------------------*/
-/*     Deck Details Styles
-/*----------------------------------------------------------------------------*/
-
-section {
-    padding: 2rem min(2rem, 3%);
-    text-align: center;
-}
-
-.box {
-    max-width: 500px;
-    margin: auto;
-    padding: 2rem min(2rem, 3%);
-    
-    border: 1px solid var(--gray);
-    border-radius: 1rem;
-    box-shadow: 5px 5px var(--dark-gray);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.box p {
-    color: var(--dark-gray);
-    border-bottom: 1px dashed var(--gray);
-    margin:0;
-    padding: 2rem;
-    font-size: 1.3rem;
-}
-
-
-/*----------------------------------------------------------------------------*/
 /*      Deck Form Styles
 /*----------------------------------------------------------------------------*/
 

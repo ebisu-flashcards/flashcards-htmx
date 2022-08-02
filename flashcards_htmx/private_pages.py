@@ -30,6 +30,11 @@ async def study_page(deck_id: str, render = Depends(template('private/study.html
 @router.get("/decks/{deck_id}", response_class=HTMLResponse)
 async def edit_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
 	return render(navbar_title=f"{deck_id}")
+
+
+@router.get("/decks/new", response_class=HTMLResponse)
+async def create_deck_page(render = Depends(template('private/deck.html'))):
+	return render(navbar_title="New Deck", deck_id="new")
 		
 
 @router.post("/decks/{deck_id}", response_class=RedirectResponse)

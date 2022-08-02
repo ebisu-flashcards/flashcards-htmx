@@ -3,52 +3,35 @@
 
 {% block css%}
 <link href="/static/css/boxes.css" rel="stylesheet">
-<link href="/static/css/edit.css" rel="stylesheet">
+<link href="/static/css/modal.css" rel="stylesheet">
 {% endblock %}
 
 {% block page %}
 
-<section id="boxes-container">
+<section id="single-card">
 
-    <div class="box">
-        <form>
+    <div class="main-card box">
+        <form action="{{ url_for('save_card_endpoint', deck_id='[deck_id]', card_id='[card_id]') }}" method="post">
             <div>
-                <div class="question-form"></div>
-                <div class="answer-form"></div>
+                <div class="question-form">
+                    <p>Here goes the fact selector-creator</p>
+                </div>
+                <div class="answer-form">
+                    <p>Here goes the fact selector-creator</p>
+                </div>
             </div>
             <div class="buttons">
-                <button type="button" class="positive" onclick="updateCard('_box_id_')">Save</button>
-                <button type="button" class="neutral" onclick="hideFormInDOM('_box_id_')">Cancel</button>
-                <button type="button" class="negative" onclick="deleteCard('_box_id_')">Delete</button>
-            </div>
-        </form>
-    </div>
-
-    
-
-    <div id="create-box" class="hidden">
-        <button type="button" onclick="showNewFormInDOM()">New Card...</button>
-        <form class="hidden">
-            <div>
-
-                <div class="field question-fields">
+                <div class="buttons">
+                    <button type="submit" class="positive">Save</button>
+                    <a href="{{ url_for('cards_page', deck_id='[deck_id]') }}" class="neutral">Cancel</a>
+                    {% if deck_id %}
+                        <button type="button" class="negative" 
+                            hx-get="{{ url_for('card_confirm_delete_component', deck_id='[deck_id]', card_id='[card_id]') }}" 
+                            hx-target="body" hx-swap="beforeend">
+                            Delete
+                        </button>
+                    {% endif %}
                 </div>
-                <select class="question-field-type-form" name="question_template" onchange="switchFieldType('question')" required>
-                    <option disabled selected value> -- select an option -- </option>
-                </select>
-
-               <hr />
-
-                <div class="field answer-fields">
-                </div>
-                <select class="answer-field-type-form" name="answer_template" onchange="switchFieldType('answer')" required>
-                    <option disabled selected value> -- select an option -- </option>
-                </select>
-                
-            </div>
-            <div class="buttons">
-                <button type="button" class="positive" onclick="createNewCard('_box_id_')">Save</button>
-                <button type="button" class="neutral" onclick="hideNewFormInDOM('_box_id_')">Cancel</button>
             </div>
         </form>
     </div>

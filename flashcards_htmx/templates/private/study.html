@@ -7,16 +7,16 @@
 {% endblock %}
 
 {% block navbar_buttons %}
-<a href="{{ url_for('home_page') }}">Back</a>
+<a href="{{ url_for('home_page') }}"><i class="fa fa-arrow-left"></i>&nbsp; Back</a>
 {% endblock %}
 
 {% block page %}
-<section>
+<section id="single-card">
 
     <div id="loading">{% include "components/loading.html"%}</div>
 
 
-    <div id="card" class="card hidden">    
+    <div class="main-card hidden">    
 
         <div id="question">
             <p>---</p>

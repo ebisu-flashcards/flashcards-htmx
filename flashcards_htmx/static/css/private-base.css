@@ -11,7 +11,7 @@ nav {
 
     display: grid;
     align-items: center;
-    grid-template-columns: min-content auto; /* repeat(auto-fit, minmax(150px, 1fr)); */
+    grid-template-columns: 1fr 1fr;
 }
 
 nav > h1 {
@@ -32,21 +32,29 @@ nav .navbar-buttons {
     gap: 1rem;
 }
 
+nav .navbar-buttons a p{
+    display: inline;
+}
+
 @media (max-width: 768px) {
+
+    nav {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        padding-bottom: 0;
+    }
 
     nav .navbar-buttons {
         justify-self: left;
         flex-wrap: wrap;
     }
     
-    nav {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
+    nav .navbar-buttons a p{
+        display: none;
     }
 }
 
 nav .navbar-buttons .logout {
-    text-align: right;
     background-color: var(--danger);
 }
 

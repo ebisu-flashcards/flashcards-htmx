@@ -1,39 +1,6 @@
 /*----------------------------------------------------------------------------*/
-/*     Study Styles
-/*----------------------------------------------------------------------------*/
-
-section {
-    padding: 2rem min(2rem, 3%);
-    text-align: center;
-}
-
-/*----------------------------------------------------------------------------*/
-/*     Card Styles
-/*----------------------------------------------------------------------------*/
-
-.card {
-    max-width: 500px;
-    margin: auto;
-    padding: 2rem min(2rem, 3%);
-    
-    border: 1px solid var(--gray);
-    border-radius: 1rem;
-    box-shadow: 5px 5px var(--dark-gray);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.card p {
-    color: var(--dark-gray);
-}
-
-
-/*----------------------------------------------------------------------------*/
 /*     Question and Answer Styles
 /*----------------------------------------------------------------------------*/
-
 
 #question {
     border-bottom: 1px dashed var(--gray);

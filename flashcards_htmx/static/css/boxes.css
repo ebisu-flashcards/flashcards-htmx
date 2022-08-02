@@ -5,7 +5,7 @@
 section {
     padding: min(2rem, 3%);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     grid-column-gap: 3vw;
     grid-row-gap: 3vh;
 }
@@ -13,9 +13,13 @@ section {
 section.cards {
     padding: min(2rem, 3%);
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-column-gap: 1vw;
     grid-row-gap: 2vh;
+}
+
+section#single-card {
+    display: block;  /* remove the grid layout */
 }
 
 
@@ -24,7 +28,6 @@ section.cards {
 /*----------------------------------------------------------------------------*/
 
 .box {
-    max-width: min(500px, 75vw);
     padding: 1.5rem;
     border: 1px solid var(--gray);
     border-radius: 1rem;
@@ -78,6 +81,7 @@ section.cards {
     color: var(--dark-gray);
     border: 1px solid var(--gray);
     background: transparent;
+    padding-left: 1rem; /* To center the icon */
 }
 
 .box .buttons {
@@ -103,40 +107,25 @@ section.cards {
 
 
 /*----------------------------------------------------------------------------*/
-/*     New Box Styles
+/*     Single Card Styles
 /*----------------------------------------------------------------------------*/
 
-#create-box {
+.main-card {
     max-width: 500px;
+    margin: auto;
+    padding: 2rem min(2rem, 3%);
+    
+    border: 1px solid var(--gray);
+    border-radius: 1rem;
+    box-shadow: 5px 5px var(--dark-gray);
+
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    transition: all .3s;
+    justify-content: space-between;
 }
 
-#create-box > button {
-    text-align: center;
-    display:inline;
-    padding: 1.5rem;
-    margin-right:auto;
-
-    border: 1px dashed var(--gray);
-    border-radius: 1rem;
-
-    background: transparent;
-    color: var(--gray);
-    font-size: 1.5rem;
-    font-style: italic;
-}
-
-#create-box  > button:hover {
-    color:black;
-    border: 1px dashed black;
-}
-
-#create-box > button:disabled {
-    color: white;
-    border-color: white;
+.main-card p {
+    color: var(--dark-gray);
 }
 
 

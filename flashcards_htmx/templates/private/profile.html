@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block page %}
-<section>
-    <div class="box">
+<section id="single-card">
+    <div class="box main-card">
         <h1>My Profile</h1>
 
         <p>Username</p>
@@ -16,8 +16,10 @@
         <p>Cards Number</p>
         <p>Study Statistics</p>
 
-        <a href="#">Change Password</a>
-        <a class="danger" href="#">Delete Account</a>
+        <div>
+            <a href="#">Change Password</a>
+            <a class="danger" href="#">Delete Account</a>
+        </div>
     </div>
 </section>
 {% endblock %}
