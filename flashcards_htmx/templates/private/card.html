@@ -11,7 +11,7 @@
 <section id="single-card">
 
     <div class="main-card box">
-        <form action="{{ url_for('save_card_endpoint', deck_id='[deck_id]', card_id='[card_id]') }}" method="post">
+        <form action="{{ url_for('save_card_endpoint', deck_id=deck.id, card_id=card.id) }}" method="post">
             <div>
                 <div class="question-form">
                     <p>Here goes the fact selector-creator</p>
@@ -21,17 +21,15 @@
                 </div>
             </div>
             <div class="buttons">
-                <div class="buttons">
-                    <button type="submit" class="positive">Save</button>
-                    <a href="{{ url_for('cards_page', deck_id='[deck_id]') }}" class="neutral">Cancel</a>
-                    {% if deck_id %}
-                        <button type="button" class="negative" 
-                            hx-get="{{ url_for('card_confirm_delete_component', deck_id='[deck_id]', card_id='[card_id]') }}" 
-                            hx-target="body" hx-swap="beforeend">
-                            Delete
-                        </button>
-                    {% endif %}
-                </div>
+                <button type="submit" class="positive">Save</button>
+                <a href="{{ url_for('cards_page', deck_id=deck.id) }}" class="neutral">Cancel</a>
+                {% if card.id %}
+                    <button type="button" class="negative" 
+                        hx-get="{{ url_for('card_confirm_delete_component', deck_id=deck.id, card_id=card.id) }}" 
+                        hx-target="body" hx-swap="beforeend">
+                        Delete
+                    </button>
+                {% endif %}
             </div>
         </form>
     </div>

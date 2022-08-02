@@ -53,6 +53,13 @@ section#single-card {
     padding: 0.75rem;
 }
 
+.box a.clickable {
+    background: unset;
+    box-shadow: none;
+    text-transform: none;
+    padding: 0;
+    color: unset;
+}
 
 .box .title {
     color: black;
@@ -128,6 +135,14 @@ section#single-card {
     color: var(--dark-gray);
 }
 
+
+/*----------------------------------------------------------------------------*/
+/*     Many Cards Styles
+/*----------------------------------------------------------------------------*/
+
+.card {
+    padding: 0.5rem;
+}
 
 /*----------------------------------------------------------------------------*/
 /*     Form Styles
