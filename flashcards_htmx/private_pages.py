@@ -43,7 +43,8 @@ async def profile_page(render = Depends(template('private/profile.html'))):
 
 @router.get("/study/{deck_id}", response_class=HTMLResponse)
 async def study_page(deck_id: str, render = Depends(template('private/study.html'))):
-	return render(navbar_title=f"{deck_id}")
+	deck = MockDeck(deck_id)
+	return render(navbar_title=deck.name, deck=deck)
 		
 
 @router.get("/decks/new", response_class=HTMLResponse)
@@ -54,7 +55,7 @@ async def create_deck_page(render = Depends(template('private/deck.html'))):
 @router.get("/decks/{deck_id}", response_class=HTMLResponse)
 async def edit_deck_page(deck_id: str, render = Depends(template('private/deck.html'))):
 	deck = MockDeck(deck_id)
-	return render(navbar_title=f"Edit '{deck.name}'", deck=deck)
+	return render(navbar_title=deck.name, deck=deck)
 
 
 @router.post("/decks/{deck_id}", response_class=RedirectResponse)
@@ -71,20 +72,20 @@ async def save_deck_endpoint(deck_id: Optional[str], request: Request):
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
 async def cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
 	deck = MockDeck(deck_id)
-	return render(navbar_title=f"{deck.name}", deck=deck)
+	return render(navbar_title=deck.name, deck=deck)
 
 
 @router.get("/decks/{deck_id}/cards/new", response_class=HTMLResponse)
 async def create_card_page(deck_id: str, render = Depends(template('private/card.html'))):
 	deck = MockDeck(deck_id)
-	return render(navbar_title=f"{deck.name}", deck=deck, card=EmptyCard())
+	return render(navbar_title=deck.name, deck=deck, card=EmptyCard())
 
 
 @router.get("/decks/{deck_id}/cards/{card_id}", response_class=HTMLResponse)
 async def edit_card_page(deck_id: str, card_id: str, render = Depends(template('private/card.html'))):
 	deck = MockDeck(deck_id)
 	card = MockCard(card_id)
-	return render(navbar_title=f"{deck.name}", deck=deck, card=card)
+	return render(navbar_title=deck.name, deck=deck, card=card)
 
 
 @router.post("/decks/{deck_id}/cards/{card_id}", response_class=RedirectResponse)

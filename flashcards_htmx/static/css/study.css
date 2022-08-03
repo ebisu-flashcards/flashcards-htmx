@@ -3,95 +3,75 @@
 /*----------------------------------------------------------------------------*/
 
 #question {
-    border-bottom: 1px dashed var(--gray);
-}
-
-#answer {
-    border-top: 1px dashed var(--gray);
+    padding: 2rem;
+    text-align: center;
+    border: none;
 }
 
 #guess {
-    padding: min(5rem, 12%);
-    padding-bottom: min(5rem, 12%);
-}
-
-#guess p {
-    margin-top:0;
-} 
-
-#guess input {
+    padding: 1rem;
+    margin: 0;
+    margin-bottom: 2rem;
     background-color: transparent;
     font-size: 1.5rem;
     text-align: center;
     border: 0;
     border-bottom: 1px solid var(--gray);
-    color: black;
-    width: 80%;
+    color: var(--black);
+    width: unset;
 }
 
-.card details summary {
-    cursor: pointer;
+.main-card details {
+    text-align: center;
+}
+
+.main-card details summary {
     list-style: none;
 }
 
-.card details summary .show:hover {
+.main-card details summary .show:hover {
     color: black;
     font-weight: bold;
 }
 
-.card details summary::-webkit-details-marker {
+.main-card details summary::-webkit-details-marker {
     display: none;
 }
 
-.card  details[open] summary {
+.main-card details[open] summary {
     display: none;
 }
 
-
-/*----------------------------------------------------------------------------*/
-/*     Feedback Styles
-/*----------------------------------------------------------------------------*/
-
-.card .feedback {
-    padding-top: 0.5rem;
-    margin-top: 1rem;
-    border-top: 1px dashed var(--gray);
+.feedback {
+    padding: 2rem;
+    padding-bottom: 0;
 }
 
-.card .feedback p {
-    padding-bottom: 0.75rem;
+.feedback .buttons {
+    border: none;
 }
 
-.card .feedback .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
-    grid-gap: 1rem;
+#answer {
+    padding: 2rem;
+    text-align: center;
+    border: none;
 }
-
-.card .positive {
-    text-transform: uppercase;
-    background-color: var(--green);
-}
-
-.card .negative {
-    text-transform: uppercase;
-    background-color: var(--red);
-}
-
 
 /*----------------------------------------------------------------------------*/
 /*     Problem Cards Styles
 /*----------------------------------------------------------------------------*/
 
-.problem-card h1 {
-    text-transform: uppercase;
-}
-
 .problem-card h1,
 .problem-card p {
-    border-bottom: 1px dashed var(--gray);
     margin:0;
-    padding: 2rem;
+    padding: 2rem 0 1rem 0;
+    display: block;
+}
+
+.problem-card h1 {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.5rem 1rem 1.5rem 1rem;
 }
 
 .problem-card p,
@@ -99,6 +79,3 @@
     font-size: 1.3rem;
 }
 
-.problem-card a {
-    margin-top: 2rem;
-}

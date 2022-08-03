@@ -1,0 +1,58 @@
+<section id="single-card" hx-target="this" hx-swap="outerHTML">
+    
+    <div class="main-card box">
+
+        {% if error %}
+        <div class="problem-card">  
+            <h1>Server Error!</h1>
+            <p>Seems like something went wrong on our servers.<br><br>
+            Please retry in a few minutes and, if the problem persists, contact the developers. It's a bug!</p>
+            <div class="buttons">
+                <a href="{{ url_for('home_page') }}">Go Back</a>  
+            </div>
+        </div>
+        {% else %}
+            
+            {% if card %}
+                <h1 id="question">{{ card.question }}</h1>
+                
+                <input id="guess" type="text" placeholder="Your Answer..."></input>
+
+                <details id="collapsible">
+                    <summary>
+                        <a>Show the answer</a>
+                    </summary>
+
+                    <div class="feedback">
+                        <h1 id="answer">{{ card.answer }}</h1>
+                        
+                        <div class="buttons">
+                            <button type="button" class="positive" 
+                                hx-post="{{ url_for('save_review_component', deck_id=deck.id, card_id=card.id, result='right') }}">
+                                Correct
+                            </button>
+                            <button type="button" class="negative" 
+                                hx-post="{{ url_for('save_review_component', deck_id=deck.id, card_id=card.id, result='wrong') }}">
+                                Wrong
+                            </button>
+                        </div>
+                    </div>
+                </details>
+            
+            {% else %}
+
+                <div class="problem-card">  
+                    <h1>No Cards!</h1>
+                    <p>Seems like you have no cards to review.<br><br>
+                    Some deck types have limits on the cards to review for specific timespans:
+                    check your deck settings and make sure your deck contains cards.
+                    </p>
+                    <div class="buttons">
+                        <a href="{{ url_for('home_page') }}">Go Back</a>  
+                    </div>    
+                </div>
+
+            {% endif %}
+        {% endif %}
+    </div>
+</section>

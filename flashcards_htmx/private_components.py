@@ -1,3 +1,4 @@
+from random import randint
 from pathlib import Path
 
 import starlette.status as status
@@ -37,27 +38,43 @@ async def cards_component(deck_id: str, render = Depends(template('responses/car
 	return render(deck=MockDeck(deck_id), cards=[MockCard(i) for i in range(20)])
 
 
+@router.get("/decks/{deck_id}/study", response_class=HTMLResponse)
+async def study_component(deck_id: str, render = Depends(template('responses/study.html'))):
+	card_id = randint(0, 10)
+	if deck_id == "0":
+		return render(card=None)
+	if deck_id == "1":
+		return render(error="Test Error")
+	return render(deck=MockDeck(deck_id), card=MockCard(card_id))
 
 
-# @router.get("/decks/{deck_id}", response_class=HTMLResponse)
-# async def deck_component(deck_id: str, render = Depends(template('components/deck.html'))):
-# 	return render()
+@router.post("/decks/{deck_id}/study/{card_id}/{result}", response_class=RedirectResponse)
+async def save_review_component(deck_id: str, card_id: str, result: str, request: Request):
+	# FIXME save the review
+	deck = MockDeck(deck_id)
+	return RedirectResponse(request.url_for('study_component', deck_id=deck.id), status_code=status.HTTP_302_FOUND)
+
 
 
 
 @router.get("/decks/{deck_id}/confirm-delete", response_class=HTMLResponse)
-async def deck_confirm_delete_component(deck_id: str, render = Depends(template('components/confirm_modal.html'))):
+async def deck_confirm_delete_component(deck_id: str, render = Depends(template('components/modal.html'))):
+	deck = MockDeck(deck_id)
 	return render(
-		title=f"Deleting {deck_id}", 
-		content=f"Are you really sure you wanna delete the deck named {deck_id}? It contains XXXX cards!"
+		title=f"Deleting {deck.name}", 
+		content=f"Are you really sure you wanna delete the deck {deck.name}? It contains XXXX cards!",
+		positive=f"Yes, delete {deck.name}",
+		negative=f"No, don't delete"
 	)
 
 
 @router.get("/decks/{deck_id}/cards/{card_id}/confirm-delete", response_class=HTMLResponse)
-async def card_confirm_delete_component(deck_id: str, card_id: str, render = Depends(template('components/confirm_modal.html'))):
+async def card_confirm_delete_component(deck_id: str, card_id: str, render = Depends(template('components/modal.html'))):
 	return render(
-		title=f"Deleting {card_id}", 
-		content=f"Are you really sure you wanna delete this card?"
+		title=f"Deleting card", 
+		content=f"Are you really sure you wanna delete this card?",
+		positive=f"Yes, delete it",
+		negative=f"No, don't delete"
 	)
 
 

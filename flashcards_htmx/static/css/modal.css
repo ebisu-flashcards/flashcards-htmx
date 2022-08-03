@@ -1,23 +1,31 @@
-/***** MODAL DIALOG ****/
-#modal {
-	/* Underlay covers entire screen. */
-	position: fixed;
-	top:0px;
-	bottom: 0px;
-	left:0px;
-	right:0px;
-	background-color:rgba(0,0,0,0.5);
-	z-index:1000;
+/*----------------------------------------------------------------------------*/
+/*     Modal Styles
+/*----------------------------------------------------------------------------*/
 
-	/* Flexbox centers the .modal-content vertically and horizontally */
+#modal {
+	/* Covers entire screen. */
+	position: fixed;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 1000;
+
 	display:flex;
 	flex-direction:column;
 	align-items:center;
 
-	/* Animate when opening */
 	animation-name: fadeIn;
-	animation-duration:150ms;
+	animation-duration: 150ms;
 	animation-timing-function: ease;
+}
+
+#modal .buttons {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	gap: 2rem;
 }
 
 #modal > .modal-underlay {
@@ -25,20 +33,20 @@
 	required if you want to click to dismiss the popup */
 	position: absolute;
 	z-index: -1;
-	top:0px;
-	bottom:0px;
+	top: 0px;
+	bottom: 0px;
 	left: 0px;
 	right: 0px;
 }
 
 #modal > .modal-content {
-	margin-top:10vh;
-	background-color:white;
-    box-shadow: 15px 15px var(--dark-gray);
+	margin-top: 10vh;
+	background-color: var(--white);
+    box-shadow: 15px 15px var(--black);
 
 	/* Animate when opening */
-	animation-name:zoomIn;
-	animation-duration:150ms;
+	animation-name: zoomIn;
+	animation-duration: 150ms;
 	animation-timing-function: ease;
 }
 
@@ -47,14 +55,12 @@
 }
 
 #modal.closing {
-	/* Animate when closing */
 	animation-name: fadeOut;
 	animation-duration:150ms;
 	animation-timing-function: ease;
 }
 
 #modal.closing > .modal-content {
-	/* Aniate when closing */
 	animation-name: zoomOut;
 	animation-duration:150ms;
 	animation-timing-function: ease;

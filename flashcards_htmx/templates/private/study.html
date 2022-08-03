@@ -2,68 +2,16 @@
 
 
 {% block css%}
+<link href="/static/css/boxes.css" rel="stylesheet">
 <link href="/static/css/study.css" rel="stylesheet">
-<link href="/static/css/widgets.css" rel="stylesheet">
 {% endblock %}
 
 {% block navbar_buttons %}
-<a href="{{ url_for('home_page') }}"><i class="fa fa-arrow-left"></i>&nbsp; Back</a>
+<a href="{{ url_for('home_page') }}"><i class="fa fa-arrow-left"></i><p>&nbsp; Back</p></a>
 {% endblock %}
 
 {% block page %}
-<section id="single-card">
-
-    <div id="loading">{% include "components/loading.html"%}</div>
-
-
-    <div class="main-card hidden">    
-
-        <div id="question">
-            <p>---</p>
-        </div>
-
-        <div id="guess">
-            <input type="text" placeholder="Your Answer..."></input>
-        </div>
-
-        <details id="collapsible">
-            <summary>
-                <p class="show">Show the answer</p>
-            </summary>
-
-            <div>
-                <div id="answer">
-                    <p>Answer</p>
-                    <p>---</p>
-                </div>
-
-                <div id="feedback">
-                    <p>Did you recall the answer?</p>
-
-                    <div class="buttons">
-                        <a class="positive" onclick="submitResults({'results': true });">Yes</a>
-                        <a class="negative" onclick="submitResults({'results': false });">No</a>
-                    </div>
-                </div>
-            </div>
-        </details>
-
-    </div>
-
-    <div id="no-cards" class="card problem-card hidden">  
-        <h1>No Cards!</h1>
-        <p>Seems like you have no cards to review.<br><br>
-           Some deck types have limits on the cards to review for specific timespans:
-           check your deck settings and make sure your deck contains cards.
-        </p>
-    </div>
-
-    <div id="server-error" class="card problem-card hidden">  
-        <h1>Server Error!</h1>
-        <p>Seems like something went wrong on our servers.<br><br>
-           Please retry in a few minutes and, if the problem persists, contact the developers. It's a bug!</p>
-        <a href="{{ url_for('home_page') }}">Go Back</a>
-    </div>
-
-</section>
+<div hx-get="{{ url_for('study_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
+    {% include "components/loading.html" %}
+</div>
 {% endblock %}
