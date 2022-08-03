@@ -7,16 +7,13 @@
 {% endblock %}
 
 {% block navbar_buttons %}
-<a class="create" href="{{ url_for('create_card_page', deck_id=deck.id) }}">
+<a class="dotted" href="{{ url_for('create_card_page', deck_id=deck.id) }}">
     <i class="fas fa-plus"></i><p>&nbsp; New Card...</p>
 </a>
 {% endblock %}
 
 {% block page %}
-<form class="search">
-    <input type="text" placeholder="Search...">
-    <a href="#"><i class="fas fa-cog"></i><p>&nbsp; Filters</p></a>
-</form>
+{% include "components/search.html" %}
 
 <div hx-get="{{ url_for('cards_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}

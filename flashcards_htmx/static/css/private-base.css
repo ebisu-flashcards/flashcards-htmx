@@ -50,17 +50,23 @@ nav .navbar-buttons .logout {
     background-color: var(--danger);
 }
 
-nav .navbar-buttons .create {
+
+a,
+button,
+input[type=submit] {
+  box-shadow: 3px 3px var(--dark-gray);
+}
+
+
+.dotted {
     color: var(--dark-gray);
     border: 1px dashed var(--dark-gray);
     background-color: transparent;
     font-style: italic;
 }
 
-a,
-button,
-input[type=submit] {
-  box-shadow: 3px 3px var(--dark-gray);
+.dotted:hover {
+    color: var(--black);
 }
 
 

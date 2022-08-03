@@ -8,6 +8,7 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .search input[type="text"] {
@@ -24,4 +25,17 @@
 .search a {
     word-break: unset;
     display: inline;
+}
+
+.search div a,
+.search div p {
+    display: inline;
+    margin: 0 0.5rem;
+}
+
+.search .chevron {
+    color: var(--dark-gray);
+    background-color: transparent;
+    border: 1px dashed var(--gray);
+    box-shadow: none;
 }
