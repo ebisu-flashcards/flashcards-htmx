@@ -1,10 +1,7 @@
-<div class="box card">
-    <a class="clickable" href="{{ url_for('edit_card_page', deck_id=deck.id, card_id=card.id) }}">
-        <div class="question">
-            <p>Question</p>
-        </div>
-        <div class="answer">
-            <p>Answer</p>
-        </div>
+<div class="box">
+    <a class="card" href="{{ url_for('edit_card_page', deck_id=deck.id, card_id=card.id) }}">
+        <p>Question</p>
+        <hr />
+        <p>Answer</p>
     </a>
 </div>

@@ -39,26 +39,34 @@ section#single-card {
     justify-content: space-between;
 }
 
-/*.box:hover {
-    transform: scale(1.05);
-}*/
-
 .box p {
     color: var(--dark-gray);
 }
 
 .box a,     
 .box button {
-    text-transform: uppercase;
     padding: 0.75rem;
 }
 
-.box a.clickable {
+/* style for whole clickable boxes, see cards browser */ 
+.box a.card {
     background: unset;
     box-shadow: none;
     text-transform: none;
     padding: 0;
     color: unset;
+}
+
+@media (max-width: 768px) {
+    .box a.card p {
+        display: inline;
+    }
+}
+
+.box a.card hr {
+    border: 0;
+    border-bottom: 1px dashed var(--gray);
+    margin: 1rem;
 }
 
 .box .title {
@@ -153,7 +161,7 @@ input[type="text"] {
     background-color: #eee;
     text-align: unset;
     font-style: italic;
-    display:block;
+    display: block;
     margin: 0.75rem 0;
     padding: 0.5rem;
     border: 0;

@@ -67,6 +67,7 @@ button,
 input[type=submit] {
   background-color: var(--blue);
   text-decoration: none;
+  text-transform: uppercase;
   color: white;
   border: none;
   border-radius: .5rem;
@@ -89,6 +90,16 @@ button:disabled,
 input[type=submit]:disabled {
   pointer-events: none;  /* to make <a>s unclickable  */
   background-color: var(--gray) !important;
+}
+
+a p{
+  display: inline;
+}
+
+@media (max-width: 768px) {
+  a p{
+      display: none;
+  }
 }
 
 input[type=submit] {
@@ -114,7 +125,7 @@ input[type=submit]:hover  {
 }
 
 .wrapper #stretched {
-  min-height: 75vh;
+  min-height: 65vh;
 }
 
 

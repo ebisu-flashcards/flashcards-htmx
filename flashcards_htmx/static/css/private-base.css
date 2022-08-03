@@ -32,10 +32,6 @@ nav .navbar-buttons {
     gap: 1rem;
 }
 
-nav .navbar-buttons a p{
-    display: inline;
-}
-
 @media (max-width: 768px) {
 
     nav {
@@ -47,10 +43,6 @@ nav .navbar-buttons a p{
     nav .navbar-buttons {
         justify-self: left;
         flex-wrap: wrap;
-    }
-    
-    nav .navbar-buttons a p{
-        display: none;
     }
 }
 
