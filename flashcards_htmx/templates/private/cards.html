@@ -13,8 +13,6 @@
 {% endblock %}
 
 {% block page %}
-{% include "components/search.html" %}
-
 <div hx-get="{{ url_for('cards_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}
 </div>

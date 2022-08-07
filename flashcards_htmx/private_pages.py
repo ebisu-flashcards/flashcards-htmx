@@ -33,7 +33,7 @@ class EmptyCard:
 
 @router.get("/home", response_class=HTMLResponse)
 async def home_page(render = Depends(template('private/home.html'))):
-	return render(navbar_title="Home")
+	return render(navbar_title="Home", searchable=True)
 
 
 @router.get("/profile", response_class=HTMLResponse)
@@ -72,7 +72,7 @@ async def save_deck_endpoint(deck_id: Optional[str], request: Request):
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
 async def cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
 	deck = MockDeck(deck_id)
-	return render(navbar_title=deck.name, deck=deck)
+	return render(navbar_title=deck.name, deck=deck, searchable=True)
 
 
 @router.get("/decks/{deck_id}/cards/new", response_class=HTMLResponse)

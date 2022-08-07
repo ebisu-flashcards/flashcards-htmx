@@ -5,6 +5,9 @@
 <link href="/static/css/private-base.css" rel="stylesheet">
 {% block css %}
 {% endblock %}
+{% if searchable %}
+<link href="/static/css/modal.css" rel="stylesheet">
+{% endif %}
 {% endblock %}
 
 
@@ -20,6 +23,13 @@
     </div>
 
     <div class="navbar-buttons">
+      {% if searchable %}
+      <div class="paginator">
+          <a class="chevron"><i class="fa fa-chevron-left"></i></a>
+          <p>X of XX</p>
+          <a class="chevron"><i class="fa fa-chevron-right"></i></a>
+      </div>
+      {% endif %}
       {% block navbar_buttons %}
       {% endblock %}
       <a href="{{ url_for('profile_page') }}">
@@ -31,6 +41,10 @@
     </div>
 
   </nav>
+
+  {% if searchable %}
+    {% include "components/search.html" %}
+  {% endif %}
 
   <div id="stretched">
   {% block page %}

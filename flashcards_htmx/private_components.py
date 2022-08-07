@@ -16,7 +16,7 @@ router = APIRouter(prefix='/_components')
 class MockDeck:
 	def __init__(self, index):
 		self.id = str(index)
-		self.name = f"Deck N. {index}"
+		self.name = f"Deck Deck Deck Deck Deck Deck N. {index}"
 		self.desc = f"Description for deck n. {index}"
 		self.algorithm = "Random"
 
@@ -31,6 +31,16 @@ class MockCard:
 @router.get("/decks", response_class=HTMLResponse)
 async def decks_component(render = Depends(template('responses/decks.html'))):
 	return render(decks=[MockDeck(i) for i in range(4)])
+
+
+@router.get("/decks/search_filters", response_class=HTMLResponse)
+async def decks_search_component(render = Depends(template('components/filter-modal.html'))):
+	return render(
+		title=f"Filters", 
+		content=f"Content here",
+		positive=f"Search",
+		negative=f"Cancel"
+	)
 	
 
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
@@ -58,7 +68,7 @@ async def save_review_component(deck_id: str, card_id: str, result: str, request
 
 
 @router.get("/decks/{deck_id}/confirm-delete", response_class=HTMLResponse)
-async def deck_confirm_delete_component(deck_id: str, render = Depends(template('components/modal.html'))):
+async def deck_confirm_delete_component(deck_id: str, render = Depends(template('components/message-modal.html'))):
 	deck = MockDeck(deck_id)
 	return render(
 		title=f"Deleting {deck.name}", 
@@ -69,7 +79,7 @@ async def deck_confirm_delete_component(deck_id: str, render = Depends(template(
 
 
 @router.get("/decks/{deck_id}/cards/{card_id}/confirm-delete", response_class=HTMLResponse)
-async def card_confirm_delete_component(deck_id: str, card_id: str, render = Depends(template('components/modal.html'))):
+async def card_confirm_delete_component(deck_id: str, card_id: str, render = Depends(template('components/message-modal.html'))):
 	return render(
 		title=f"Deleting card", 
 		content=f"Are you really sure you wanna delete this card?",

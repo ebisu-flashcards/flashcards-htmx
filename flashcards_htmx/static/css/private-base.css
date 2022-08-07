@@ -4,45 +4,57 @@
 
 nav {
     margin: 0 1rem;
-    padding: 1rem 0;
-    text-align: justify;
+    padding: 1rem 0.5rem;
     border-bottom: 1px dashed var(--gray);
     text-transform: uppercase;
 
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto auto;
 }
 
-nav > h1 {
+nav .homepage-link {
+    display: grid;
+    align-items: center;
+    grid-template-columns: min-content auto;
+}
+
+nav .homepage-link h1 {
     margin: 0;
     padding: 0;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
 }
 
-nav > h1.center {
+nav .homepage-link a{
+    color: var(--blue);
+    background-color: transparent;
     margin: 0;
-    text-align: center;
+    padding: 0;
+    box-shadow: none;
 }
+
+nav .homepage-link a:hover{
+    box-shadow: none;
+}
+
+nav .homepage-link .fa-fish {
+    z-index: 100;
+    font-size: 2rem;
+    transform: rotate(-25deg);
+}
+
 
 nav .navbar-buttons {
     display: flex;
-    justify-self: right;
-    padding-right: 1.25rem;
     gap: 1rem;
+    justify-self: right;
 }
 
 @media (max-width: 768px) {
 
-    nav {
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr;
-        padding-bottom: 0;
-    }
-
     nav .navbar-buttons {
-        justify-self: left;
         flex-wrap: wrap;
+        justify-content: flex-end;
     }
 }
 
@@ -87,23 +99,55 @@ a.borderless:hover {
   filter: brightness(100%);
 }
 
-.homepage-link {
-    display: grid;
+/*----------------------------------------------------------------------------*/
+/*      Search widget & paginator Styles
+/*----------------------------------------------------------------------------*/
+
+.search {
+    margin: 0 1rem 0 1rem;
+    padding: 1rem 0.5rem 0 0.5rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 0;
+}
+
+.search form {
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    grid-template-columns: min-content auto;
+    gap: 1rem;
+    flex-wrap: nowrap;
+    flex-grow: 20;
 }
 
-.homepage-link a{
-    color: var(--blue);
-    background-color: transparent;
-    margin: 0;
-    padding: 0;
-    box-shadow: none;
+.search form input[type="text"] {
+    color: var(--dark-gray);
+    background-color: unset;
+    font-size: 1.3rem;
+    font-style: italic;
+    border: 0;
+    border-bottom: 1px dashed var(--gray);
+    width: auto;
+    flex-grow: 20;
 }
 
-.homepage-link .fa-fish {
-    z-index: 100;
-    margin: 0 1.25rem;
-    font-size: 2rem;
-    transform: rotate(-25deg);
+.search button {
+    word-break: unset;
+    display: inline;
+    margin: auto;
+}
+
+.search button p {
+    display: inline;
+}
+
+
+.paginator {
+    display: flex;
+    gap: 1rem;
+    width: min-content;
+    white-space: nowrap;
 }
