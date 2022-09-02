@@ -36,7 +36,7 @@ async def decks_component(render = Depends(template('responses/decks.html'))):
 @router.get("/decks/search_filters", response_class=HTMLResponse)
 async def decks_search_component(render = Depends(template('components/filter-modal.html'))):
 	return render(
-		title=f"Filters", 
+		title=f"decks", 
 		content=f"Content here",
 		positive=f"Search",
 		negative=f"Cancel"

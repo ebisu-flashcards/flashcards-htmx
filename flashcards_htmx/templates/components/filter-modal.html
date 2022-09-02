@@ -1,8 +1,12 @@
 <div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
 	<div class="modal-underlay" _="on click trigger closeModal"></div>
 	<div class="modal-content box">
-		<h1>{{ title }}</h1>
-		<p>{{ content }}</p>
+		<h1>Filters {{ title }}</h1>
+		<form>
+			<input id="deck-name-form" type="text" name="name", placeholder="Tags"></input>
+			<input id="deck-desc-form" type="text" name="description" placeholder="Algorithms"></input>
+			<input id="deck-type-form" class="hidden" type="text" name="algorithm"></input>
+		</form>
 		<div class="buttons">
 			<button class="positive" _="on click trigger closeModal">{{ positive }}</button>
 			<button class="negative" _="on click trigger closeModal">{{ negative }}</button>

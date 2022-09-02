@@ -2,7 +2,6 @@
 
 
 {% block css%}
-<link href="/static/css/boxes.css" rel="stylesheet">
 <link href="/static/css/modal.css" rel="stylesheet">
 {% endblock %}
 
@@ -12,12 +11,29 @@
 
     <div class="main-card box">
         <form action="{{ url_for('save_card_endpoint', deck_id=deck.id, card_id=card.id) }}" method="post">
-            <div>
-                <div class="question-form">
-                    <p>Here goes the fact selector-creator</p>
+            <div class="question">
+                <input type="text" placeholder="Question">
+                <select name="items">
+                    <option value="">SELECT</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <div>
+                    <p>OPTIONS</p>
                 </div>
-                <div class="answer-form">
-                    <p>Here goes the fact selector-creator</p>
+            </div>
+
+            <div class="answer">
+                <input type="text" placeholder="Answer">
+                <select name="items">
+                    <option value="">SELECT</option>
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+                <div>
+                    <p>OPTIONS</p>
                 </div>
             </div>
             <div class="buttons">

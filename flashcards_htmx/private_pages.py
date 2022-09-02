@@ -7,7 +7,6 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from flashcards_htmx.app import template
-
 from flashcards_htmx.private_components import MockDeck, MockCard
 
 
@@ -32,8 +31,10 @@ class EmptyCard:
 
 
 @router.get("/home", response_class=HTMLResponse)
-async def home_page(render = Depends(template('private/home.html'))):
-	return render(navbar_title="Home", searchable=True)
+async def home_page(request: Request, render = Depends(template('private/home.html'))):
+	return render(
+		navbar_title="Home", searchable=True, new_item_endpoint=request.url_for('create_deck_page'), new_item_text="New Deck..."
+	)
 
 
 @router.get("/profile", response_class=HTMLResponse)
@@ -70,9 +71,9 @@ async def save_deck_endpoint(deck_id: Optional[str], request: Request):
 		
 
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
-async def cards_page(deck_id: str, render = Depends(template('private/cards.html'))):
+async def cards_page(deck_id: str, request: Request, render = Depends(template('private/cards.html'))):
 	deck = MockDeck(deck_id)
-	return render(navbar_title=deck.name, deck=deck, searchable=True)
+	return render(navbar_title=deck.name, deck=deck, searchable=True, new_item_endpoint=request.url_for('create_card_page', deck_id=deck_id), new_item_text="New Card...")
 
 
 @router.get("/decks/{deck_id}/cards/new", response_class=HTMLResponse)

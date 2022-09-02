@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 import importlib.metadata
 
-from jinja2 import Environment, contextfunction
+from jinja2 import Environment, pass_context
 from jinja2.loaders import PackageLoader
 from fastapi import Request, Depends
 from fastapi import FastAPI
@@ -26,7 +26,7 @@ app.mount("/static", StaticFiles(directory=Path(__file__).parent / "static"), na
 
 def get_jinja2():
     """ Get Jinja2 dependency function. you can define more functions, filters or global vars here """
-    @contextfunction
+    @pass_context
     def url_for(context: dict, name: str, **path_params: typing.Any) -> str:
         request = context["request"]
         return request.url_for(name, **path_params)
