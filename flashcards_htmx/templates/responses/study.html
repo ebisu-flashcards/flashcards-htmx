@@ -13,7 +13,21 @@
         </div>
         {% else %}
             
-            {% if card %}
+            {% if not card %}
+
+                <div class="problem-card">  
+                    <h1>No Cards!</h1>
+                    <p>Seems like you have no cards to review.<br><br>
+                    Some deck types have limits on the cards to review for specific timespans:
+                    check your deck settings and make sure your deck contains cards.
+                    </p>
+                    <div class="buttons">
+                        <a href="{{ url_for('home_page') }}">Go Back</a>  
+                    </div>    
+                </div>
+
+            {% else %}
+
                 <h1 id="question">{{ card.question }}</h1>
                 
                 <input id="guess" type="text" placeholder="Your Answer..."></input>
@@ -39,18 +53,7 @@
                     </div>
                 </details>
             
-            {% else %}
-
-                <div class="problem-card">  
-                    <h1>No Cards!</h1>
-                    <p>Seems like you have no cards to review.<br><br>
-                    Some deck types have limits on the cards to review for specific timespans:
-                    check your deck settings and make sure your deck contains cards.
-                    </p>
-                    <div class="buttons">
-                        <a href="{{ url_for('home_page') }}">Go Back</a>  
-                    </div>    
-                </div>
+           
 
             {% endif %}
         {% endif %}

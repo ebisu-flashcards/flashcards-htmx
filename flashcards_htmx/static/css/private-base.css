@@ -107,7 +107,7 @@ a.borderless:hover {
 
 .search {
     margin: 0 1rem 0 1rem;
-    padding: 1rem 0.5rem 0 0.5rem;
+    padding: 1rem 1rem 0 1rem;
     text-transform: uppercase;
     display: flex;
     flex-wrap: nowrap;
@@ -123,7 +123,7 @@ a.borderless:hover {
     font-size: 1.3rem;
     font-style: italic;
     border: 0;
-    border-bottom: 1px dashed var(--gray);
+    border-bottom: 1px solid var(--gray);
 }
 
 @media (max-width: 768px) {
@@ -176,7 +176,6 @@ section.cards {
 /*----------------------------------------------------------------------------*/
 
 .box {
-    padding: 1.5rem;
     border: 1px solid var(--gray);
     border-radius: 1rem;
     box-shadow: 5px 5px var(--dark-gray);
@@ -185,6 +184,10 @@ section.cards {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.box .content {
+    margin:1.5rem;
 }
 
 .box p {
@@ -223,7 +226,7 @@ section.cards {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     align-items: center;
     gap: 1rem;
 }
@@ -240,13 +243,6 @@ section.cards {
     border-bottom: 1px dashed var(--dark-gray);
 }
 
-.box .edit {
-    color: var(--dark-gray);
-    border: 1px solid var(--gray);
-    background: transparent;
-    padding-left: 1rem; /* To center the icon */
-}
-
 .box .buttons {
     padding-top: 1rem;
     margin-top: 1rem;
@@ -254,6 +250,11 @@ section.cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1rem;
+}
+
+.box .study {
+    border-radius: 0 0 1rem 1rem;
+    padding: 1.5rem;
 }
 
 .box .positive {

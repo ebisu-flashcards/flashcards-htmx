@@ -10,22 +10,25 @@ from flashcards_htmx.app import template
 
 
 templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
-router = APIRouter(prefix='/_components')
+router = APIRouter(prefix='/htmx/components')
 
 
 class MockDeck:
 	def __init__(self, index):
 		self.id = str(index)
-		self.name = f"Deck Deck Deck Deck Deck Deck N. {index}"
-		self.desc = f"Description for deck n. {index}"
+		self.name = f"Deck {index}"
+		self.desc = f"Description for deck {index}"
 		self.algorithm = "Random"
 
 
 class MockCard:
 	def __init__(self, index):
 		self.id = str(index)
-		self.question = f"Question N. {index}"
-		self.answer = f"Answer n. {index}"
+		self.question = f"Question {index}"
+		self.answer = f"Answer {index}"
+		self.preview = f"Preview {index}"
+		self.tags = [f"tag {index}"]
+		self.type = "Q/A"
 
 
 @router.get("/decks", response_class=HTMLResponse)

@@ -1,16 +1,57 @@
-{% extends "private/base.html" %}
+{% extends "public/base.html" %}
 
-
-{% block css%}
+{% block style%}
+<link href="/static/css/private-base.css" rel="stylesheet">
 <link href="/static/css/study.css" rel="stylesheet">
 {% endblock %}
 
-{% block navbar_buttons %}
-<a href="{{ url_for('home_page') }}"><i class="fa fa-arrow-left"></i><p>&nbsp; Back</p></a>
-{% endblock %}
 
-{% block page %}
-<div hx-get="{{ url_for('study_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
-    {% include "components/loading.html" %}
-</div>
+{% block body %}
+<main class="wrapper">
+  <nav>
+
+    <div class="homepage-link">
+      <a href="{{ url_for('home_page') }}">
+        <i class="fas fa-fish"></i>
+      </a>
+      <h1>{{ navbar_title }}</h1>
+    </div>
+
+    <div class="navbar-buttons">
+      <a href="{{ url_for('home_page') }}"><i class="fa fa-sign-out-alt" style="transform: rotate(180deg);"></i></a>
+    </div>
+
+  </nav>
+
+  {% if searchable %}
+  <form class="search">
+      <input type="text" placeholder="Search...">
+      <a
+          hx-get="{{ new_item_endpoint }}"
+          hx-target="body" hx-swap="beforeend"
+          class="dotted">
+          <i class="fas fa-sliders-h"></i>
+      </a>
+      <a href="{{ new_item_endpoint }}">
+        <i class="fas fa-plus"></i>
+      </a>
+      <div class="paginator">
+        <a class="dotted"><i class="fa fa-chevron-left"></i></a>
+        <p>X of XX</p>
+        <a class="dotted"><i class="fa fa-chevron-right"></i></a>
+      </div>
+  </form>
+  {% endif %}
+
+  <div id="stretched">
+    <div hx-get="{{ url_for('study_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
+        {% include "components/loading.html" %}
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; Ebisu Flashcards 2022 - {{ this_year }}. Made with FastAPI and HTMX.</p>
+  </footer>
+
+</main>
 {% endblock %}

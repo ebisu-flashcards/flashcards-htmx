@@ -25,12 +25,9 @@
     <div class="navbar-buttons">
       {% block navbar_buttons %}
       {% endblock %}
-      <a href="{{ url_for('profile_page') }}">
-        <i class="fas fa-user"></i><p>&nbsp; My Name</p>
+      <a class="dotted" href="{{ url_for('profile_page') }}">
+        <i class="fas fa-user"></i>
       </a>
-      <a class="logout" href="{{ url_for('logout_page') }}">
-        <i class="fas fa-sign-out-alt"></i><p>&nbsp; Logout</p>
-      </a>  
     </div>
 
   </nav>
@@ -40,16 +37,20 @@
       <input type="text" placeholder="Search...">
       <a
           hx-get="{{ new_item_endpoint }}"
-          hx-target="body" hx-swap="beforeend">
-          <i class="fas fa-cog"></i><p>&nbsp; Filters</p>
+          hx-target="body" hx-swap="beforeend"
+          class="dotted">
+          <i class="fas fa-sliders-h"></i>
       </a>
-      <a class="dotted" href="{{ new_item_endpoint }}">
-        <i class="fas fa-plus"></i><p>&nbsp; {{ new_item_text }}</p>
+      <a class="dotted" href="#">
+        <i class="fas fa-check-square"></i>
+      </a>
+      <a href="{{ new_item_endpoint }}">
+        <i class="fas fa-plus"></i>
       </a>
       <div class="paginator">
-        <a class="chevron"><i class="fa fa-chevron-left"></i></a>
+        <a class="dotted"><i class="fa fa-chevron-left"></i></a>
         <p>X of XX</p>
-        <a class="chevron"><i class="fa fa-chevron-right"></i></a>
+        <a class="dotted"><i class="fa fa-chevron-right"></i></a>
       </div>
   </form>
   {% endif %}
