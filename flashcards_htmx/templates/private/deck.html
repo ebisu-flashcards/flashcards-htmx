@@ -11,7 +11,7 @@
 <section id="single-card">
     <div class="box main-card">  
         
-        <form action="{{ url_for('save_deck_endpoint', deck_id=deck.id) }}" method="post">
+        <form action="{{ url_for('save_deck_endpoint', deck_id=deck_id) }}" method="post">
             <div>
                 <input id="deck-name-form" type="text" name="name", placeholder="Deck Name" value="{{ deck.name }}"></input>
                 <input id="deck-desc-form" type="text" name="description" placeholder="Deck Description" value="{{ deck.desc }}"></input>
@@ -22,9 +22,9 @@
             <div class="buttons">
                 <button type="submit" class="positive">Save</button>
                 <a href="{{ url_for('home_page') }}" class="neutral">Cancel</a>
-                {% if deck.id %}
+                {% if deck_id %}
                 <button type="button" class="negative" 
-                    hx-get="{{ url_for('deck_confirm_delete_component', deck_id=deck.id) }}" 
+                    hx-get="{{ url_for('deck_confirm_delete_component', deck_id=deck_id) }}" 
                     hx-target="body" hx-swap="beforeend">
                     Delete
                 </button>

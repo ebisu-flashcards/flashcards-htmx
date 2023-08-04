@@ -42,19 +42,16 @@
                         
                         <div class="buttons">
                             <button type="button" class="positive" 
-                                hx-post="{{ url_for('save_review_component', deck_id=deck.id, card_id=card.id, result='right') }}">
+                                hx-post="{{ url_for('save_review_component', deck_id=deck_id, card_id=card_id, result='right') }}">
                                 Correct
                             </button>
                             <button type="button" class="negative" 
-                                hx-post="{{ url_for('save_review_component', deck_id=deck.id, card_id=card.id, result='wrong') }}">
+                                hx-post="{{ url_for('save_review_component', deck_id=deck_id, card_id=card_id, result='wrong') }}">
                                 Wrong
                             </button>
                         </div>
                     </div>
                 </details>
-            
-           
-
             {% endif %}
         {% endif %}
     </div>

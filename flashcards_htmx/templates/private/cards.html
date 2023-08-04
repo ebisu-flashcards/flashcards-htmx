@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block page %}
-<div hx-get="{{ url_for('cards_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
+<div hx-get="{{ url_for('cards_component', deck_id=deck_id) }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}
 </div>
 

@@ -1,11 +1,14 @@
-<div class="box">
-    <a class="content card" href="{{ url_for('edit_card_page', deck_id=deck.id, card_id=card.id) }}">
-        <p>{{ card.preview }}</p>
 
-        <hr />
+<div>
+    <div class="box">
+        <a class="content card" href="{{ url_for('edit_card_page', deck_id=deck_id, card_id=card.id) }}">
+            <p>{{ card.preview }}</p>
+        </a>
+    </div>
+    <div class="tags">
         {% for tag in card.tags %}
-        <p class="deck-type">{{ tag }}</p>
+        <p class="positive">{{ tag }}</p>
         {% endfor %}
-        <p class="deck-type">{{ card.type }}</p>
-    </a>
+        <p class="positive">{{ card.type }}</p>
+    </div>
 </div>

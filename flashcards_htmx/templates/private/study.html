@@ -22,29 +22,9 @@
     </div>
 
   </nav>
-
-  {% if searchable %}
-  <form class="search">
-      <input type="text" placeholder="Search...">
-      <a
-          hx-get="{{ new_item_endpoint }}"
-          hx-target="body" hx-swap="beforeend"
-          class="dotted">
-          <i class="fas fa-sliders-h"></i>
-      </a>
-      <a href="{{ new_item_endpoint }}">
-        <i class="fas fa-plus"></i>
-      </a>
-      <div class="paginator">
-        <a class="dotted"><i class="fa fa-chevron-left"></i></a>
-        <p>X of XX</p>
-        <a class="dotted"><i class="fa fa-chevron-right"></i></a>
-      </div>
-  </form>
-  {% endif %}
-
+  
   <div id="stretched">
-    <div hx-get="{{ url_for('study_component', deck_id=deck.id) }}" hx-trigger="load" hx-swap="outerHTML">
+    <div hx-get="{{ url_for('study_component', deck_id=deck_id) }}" hx-trigger="load" hx-swap="outerHTML">
         {% include "components/loading.html" %}
     </div>
   </div>
