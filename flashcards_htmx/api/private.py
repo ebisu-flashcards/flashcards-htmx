@@ -4,7 +4,7 @@ import shelve
 
 from jinja2 import Template
 import starlette.status as status
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
@@ -35,6 +35,8 @@ async def profile_page(render=Depends(template("private/profile.html"))):
 async def study_page(deck_id: str, render=Depends(template("private/study.html"))):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
     return render(navbar_title=deck["name"], deck=deck, deck_id=deck_id)
 
 
@@ -53,6 +55,8 @@ async def create_deck_page(render=Depends(template("private/deck.html"))):
 async def edit_deck_page(deck_id: str, render=Depends(template("private/deck.html"))):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
     return render(navbar_title=deck["name"], deck=deck, deck_id=deck_id)
 
 
@@ -79,6 +83,8 @@ async def cards_page(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
     return render(
         navbar_title=deck["name"],
         deck=deck,
@@ -93,6 +99,9 @@ async def cards_page(
 async def create_card_page(deck_id: str, render=Depends(template("private/card.html"))):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
         id = len(db["decks"].get(deck_id, {}).get("cards", {})) + 1
         card_templates = db["templates"]
         for template in card_templates.values():
@@ -110,6 +119,7 @@ async def create_card_page(deck_id: str, render=Depends(template("private/card.h
             },
             "tags": [],
             "type": "Q/A",
+            "reviews": {},
         },
         card_id=id,
         card_templates=card_templates
@@ -122,8 +132,14 @@ async def edit_card_page(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
         card_templates = db["templates"]
-        card = deck["cards"][card_id]
+        card = deck["cards"].get(card_id, {})
+        if not card:
+            raise HTTPException(status_code=404, detail="Card not found")
+        
         for template in card_templates.values():
             template["rendered_form"] = Template(template["form"]).render(**card["data"])
 
@@ -142,7 +158,8 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
     async with request.form() as form:
         with shelve.open(database) as db:
             deck = db["decks"].get(deck_id, {})
-            card = {
+            deck["cards"][card_id] = {
+                **deck["cards"].get(card_id, {"reviews": {}}),
                 "data": {
                     "question": {
                         key[len("question."):] : value for key, value in form.items() if key.startswith("question.")
@@ -157,10 +174,9 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
                 "tags": [tag.strip() for tag in form["tags"].split(",") if tag.strip()],
                 "type": form["type"],
             }
-            deck["cards"][card_id] = card
 
     return RedirectResponse(
-        request.url_for("home_page"), status_code=status.HTTP_302_FOUND
+        request.url_for("cards_page", deck_id=deck_id), status_code=status.HTTP_302_FOUND
     )
 
 

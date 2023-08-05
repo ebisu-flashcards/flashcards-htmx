@@ -5,7 +5,7 @@ import shelve
 
 from jinja2 import Template
 import starlette.status as status
-from fastapi import APIRouter, Request, Depends
+from fastapi import APIRouter, Request, Depends, HTTPException
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
@@ -37,6 +37,9 @@ async def cards_component(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
         card_templates = db["templates"]
         for card in deck["cards"].values():
             card["preview"] = Template(card_templates[card["type"]]["preview"]).render(**card["data"])
@@ -49,14 +52,24 @@ async def study_component(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
-    if not len(deck["cards"]):
-        return render(card=None)
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
+        if not len(deck["cards"]):
+            return render(card=None, deck_id=deck_id)
+
+        # TODO actually get the card to study from the deck
+        card_id = randint(1, len(deck["cards"]))
+        # if card_id == "1":
+        #     return render(error="Test Error")
     
-    # if card_id == "1":
-    #     return render(error="Test Error")
+        card = deck["cards"].get(str(card_id), {})
+        if not card:
+            raise HTTPException(status_code=404, detail="Card not found")
+        
+        card["rendered_question"] = Template(db["templates"][card["type"]]["question"]).render(**card["data"]["question"])
+        card["rendered_answer"] = Template(db["templates"][card["type"]]["answer"]).render(**card["data"]["answer"])
     
-    # TODO actually get the card to study from the deck
-    card_id = randint(0, len(deck["cards"]))
     return render(deck=deck, deck_id=deck_id, card=deck["cards"][str(card_id)], card_id=str(card_id))
 
 
@@ -68,6 +81,9 @@ async def save_review_component(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
         deck["cards"][card_id]["reviews"][len(deck["cards"][card_id]["reviews"])] = {
             "date": datetime.datetime.utcnow().isoformat(),
             "result": result,
@@ -84,6 +100,9 @@ async def deck_confirm_delete_component(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
     return render(
         title=f"Deleting {deck['name']}",
         content=f"Are you really sure you wanna delete the deck {deck['name']}? It contains {len(deck['cards'])} cards.",
@@ -102,6 +121,9 @@ async def card_confirm_delete_component(
 ):
     with shelve.open(database) as db:
         deck = db["decks"].get(deck_id, {})
+        if not deck:
+            raise HTTPException(status_code=404, detail="Deck not found")
+        
     return render(
         title=f"Deleting card n. {deck['cards'][card_id]['id']}",
         content=f"Are you really sure you wanna delete this card? [TODO show card preview]",

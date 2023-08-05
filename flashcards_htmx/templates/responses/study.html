@@ -22,23 +22,21 @@
                     check your deck settings and make sure your deck contains cards.
                     </p>
                     <div class="buttons">
-                        <a href="{{ url_for('home_page') }}">Go Back</a>  
+                        <a href="{{ url_for('cards_page', deck_id=deck_id) }}">Add cards</a>  
                     </div>    
                 </div>
 
             {% else %}
 
-                <h1 id="question">{{ card.question }}</h1>
+                <h1 id="question">{{ card.rendered_question }}</h1>
                 
-                <input id="guess" type="text" placeholder="Your Answer..."></input>
-
                 <details id="collapsible">
-                    <summary>
+                    <summary autofocus>
                         <a>Show the answer</a>
                     </summary>
 
                     <div class="feedback">
-                        <h1 id="answer">{{ card.answer }}</h1>
+                        <h1 id="answer">{{ card.rendered_answer }}</h1>
                         
                         <div class="buttons">
                             <button type="button" class="positive" 

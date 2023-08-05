@@ -11,6 +11,8 @@ from jinja2.loaders import PackageLoader
 from fastapi import Request, Depends
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import HTMLResponse
+from fastapi.exceptions import HTTPException, StarletteHTTPException
 
 
 __version__ = importlib.metadata.version("flashcards_htmx")
@@ -64,6 +66,7 @@ Data structure:
 }
 """
 
+
 database = "flashcards.db"
 shelve.open = partial(shelve.open, writeback=True)
 
@@ -83,17 +86,6 @@ with shelve.open(database) as db:
             """
         }
     })
-
-
-# Create the FastAPI app
-app = FastAPI(
-    title="Flashcards HTMX webserver",
-    description="API Docs for flashcards-htmx",
-    version=__version__,
-)
-app.mount(
-    "/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static"
-)
 
 
 def get_jinja2():
@@ -125,12 +117,32 @@ def template(tpl: str):
     return func_view
 
 
+# Create the FastAPI app
+app = FastAPI(
+    title="Flashcards HTMX webserver",
+    description="API Docs for flashcards-htmx",
+    version=__version__,
+)
+app.mount(
+    "/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static"
+)
+
+
+@app.exception_handler(StarletteHTTPException)
+async def http_exception_handler(request: Request, exc: HTTPException):
+    template = get_jinja2().get_template("public/http_error.html")
+    response = template.render(request=request, code=exc.status_code, message=exc.detail)
+    return HTMLResponse(response)
+
+
 from flashcards_htmx.api.public import router as public_router  # noqa: F401, E402
 from flashcards_htmx.api.private import router as private_router  # noqa: F401, E402
 from flashcards_htmx.api.components import (
     router as private_components,
 )  # noqa: F401, E402
+from flashcards_htmx.api.json import router as json_router  # noqa: F401, E402
 
 app.include_router(public_router)
 app.include_router(private_router)
 app.include_router(private_components)
+app.include_router(json_router)
