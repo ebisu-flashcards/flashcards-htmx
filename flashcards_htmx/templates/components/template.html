@@ -1,0 +1,9 @@
+<div>
+    <div class="box">
+        <a class="content card" href="{{ url_for('edit_template_page', template_id=id) }}" style="display: flex; flex-direction: column;">
+            <h1>{{ template.name }}</h1>
+            <p>{{ template.description }}</p>
+            <p class="comment">Used by XXX cards</p>
+        </a>
+    </div>
+</div>

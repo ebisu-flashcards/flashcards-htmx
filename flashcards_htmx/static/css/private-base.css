@@ -319,6 +319,7 @@ section#double-card {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 }
 
 section#double-card .main-card {

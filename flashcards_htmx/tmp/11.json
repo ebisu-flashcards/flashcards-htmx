@@ -1,0 +1,54 @@
+{
+    "cards": {
+        "1": {
+            "reviews": {},
+            "data": {
+                "question": {
+                    "word": "a"
+                },
+                "answer": {
+                    "word": "b"
+                },
+                "preview": {}
+            },
+            "tags": [
+                "test"
+            ],
+            "type": "1"
+        },
+        "2": {
+            "reviews": {},
+            "data": {
+                "question": {
+                    "word": "b"
+                },
+                "answer": {
+                    "word": "c"
+                },
+                "preview": {}
+            },
+            "tags": [
+                "t",
+                "tt"
+            ],
+            "type": "1"
+        },
+        "4": {
+            "reviews": {},
+            "data": {
+                "question": {
+                    "word": "d"
+                },
+                "answer": {
+                    "word": "e"
+                },
+                "preview": {}
+            },
+            "tags": [],
+            "type": "1"
+        }
+    },
+    "name": "11",
+    "description": "dwqfeeas",
+    "algorithm": "Random"
+}

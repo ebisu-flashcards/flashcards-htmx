@@ -22,12 +22,20 @@ Data structure:
 
 {
     "templates": {
-        "Q/A": {
-            "question": "{{ word }}"
-            "answer": "{{ word }}"
-            "preview": "{{ question }} -> {{ answer }}"
-            "form": "<input type='text' name='question.word'><input type='text' name='answer.word'>"
-        }
+        "1": {
+                "name": "Q/A",
+                "description": "Simple template with a question and an answer.",
+                "question": "{{ word }}",
+                "answer": "{{ word }}",
+                "preview": "{{ question.word }} -> {{ answer.word }}",
+                "form": '''
+                    <label for='question'>Question</label>
+                    <input type='text' name='question.word' value={{ question.word }}>
+
+                    <label for='answer'>Answer</label>
+                    <input type='text' name='answer.word'  value={{ answer.word }}>
+                ''',
+            }
     }
     "decks": {
         "0": {
@@ -72,20 +80,25 @@ shelve.open = partial(shelve.open, writeback=True)
 
 with shelve.open(database) as db:
     db.setdefault("decks", {})
-    db.setdefault("templates", {
-        "Q/A": {
-            "question": "{{ word }}",
-            "answer": "{{ word }}",
-            "preview": "{{ question.word }} -> {{ answer.word }}",
-            "form": """
+    db.setdefault(
+        "templates",
+        {
+            "1": {
+                "name": "Q/A",
+                "description": "Simple template with a question and an answer.",
+                "question": "{{ word }}",
+                "answer": "{{ word }}",
+                "preview": "{{ question.word }} -> {{ answer.word }}",
+                "form": """
                 <label for='question'>Question</label>
                 <input type='text' name='question.word' value={{ question.word }}>
 
                 <label for='answer'>Answer</label>
                 <input type='text' name='answer.word'  value={{ answer.word }}>
-            """
-        }
-    })
+            """,
+            }
+        },
+    )
 
 
 def get_jinja2():
@@ -131,16 +144,20 @@ app.mount(
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(request: Request, exc: HTTPException):
     template = get_jinja2().get_template("public/http_error.html")
-    response = template.render(request=request, code=exc.status_code, message=exc.detail)
+    response = template.render(
+        request=request, code=exc.status_code, message=exc.detail
+    )
     return HTMLResponse(response, status_code=exc.status_code)
 
 
 from flashcards_htmx.api.public import router as public_router  # noqa: F401, E402
 from flashcards_htmx.api.private import router as private_router  # noqa: F401, E402
-from flashcards_htmx.api.components import (
-    router as private_components,
-)  # noqa: F401, E402
+from flashcards_htmx.api.decks import router as decks_router  # noqa: F401, E402
+from flashcards_htmx.api.cards import router as cards_router  # noqa: F401, E402
+from flashcards_htmx.api.templates import router as templates_router  # noqa: F401, E402
 
 app.include_router(public_router)
 app.include_router(private_router)
-app.include_router(private_components)
+app.include_router(decks_router)
+app.include_router(cards_router)
+app.include_router(templates_router)
