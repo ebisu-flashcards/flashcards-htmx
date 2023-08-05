@@ -1,5 +1,5 @@
 <section class="cards">
-    {% for card in deck.cards.values() %}
+    {% for id, card in deck.cards.items() %}
         {% include 'components/card.html' %}
     {% endfor %}
 </section>

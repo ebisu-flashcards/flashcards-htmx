@@ -1,8 +1,7 @@
-
 <div>
     <div class="box">
-        <a class="content card" href="{{ url_for('edit_card_page', deck_id=deck_id, card_id=card.id) }}">
-            <p>{{ card.preview }}</p>
+        <a class="content card" href="{{ url_for('edit_card_page', deck_id=deck_id, card_id=id) }}">
+            {{ card.preview|safe }}
         </a>
     </div>
     <div class="tags">

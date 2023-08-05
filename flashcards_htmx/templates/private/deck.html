@@ -14,7 +14,7 @@
         <form action="{{ url_for('save_deck_endpoint', deck_id=deck_id) }}" method="post">
             <div>
                 <input id="deck-name-form" type="text" name="name", placeholder="Deck Name" value="{{ deck.name }}"></input>
-                <input id="deck-desc-form" type="text" name="description" placeholder="Deck Description" value="{{ deck.desc }}"></input>
+                <input id="deck-desc-form" type="text" name="description" placeholder="Deck Description" value="{{ deck.description }}"></input>
                 <input id="deck-type-form" class="hidden" type="text" name="algorithm" value="{{ deck.algorithm }}"></input>
                 <div id="extra-fields"></div>
             </div>

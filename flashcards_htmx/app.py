@@ -1,9 +1,10 @@
-import typing
+from typing import *
 import shelve
 
 from pathlib import Path
 from datetime import datetime
 import importlib.metadata
+from functools import partial
 
 from jinja2 import Environment, pass_context
 from jinja2.loaders import PackageLoader
@@ -13,6 +14,75 @@ from fastapi.staticfiles import StaticFiles
 
 
 __version__ = importlib.metadata.version("flashcards_htmx")
+
+"""
+Data structure:
+
+{
+    "templates": {
+        "Q/A": {
+            "question": "{{ word }}"
+            "answer": "{{ word }}"
+            "preview": "{{ question }} -> {{ answer }}"
+            "form": "<input type='text' name='question.word'><input type='text' name='answer.word'>"
+        }
+    }
+    "decks": {
+        "0": {
+            "name": "Deck 0",
+            "description": "Description for deck 0",
+            "algorithm": "Random",
+            "cards": {
+                "0": {
+                    "type": "Q/A",
+                    "tags": ["tag 0"],
+                    "data": {
+                        "question": {
+                            "word": "Question 0",
+                            "example": "Example 0",
+                        },
+                        "answer": {
+                            "word": "Answer 0",
+                            "context": "Some context"
+                        },
+                        "preview": {
+                            "divider": " -> ",
+                        }
+                    },
+                    "reviews: {
+                        "0": { 
+                            "date": "2021-01-01",
+                            "result: "Correct"
+                        }
+                    }
+                },
+                "1": { ... }
+            }   
+        },
+        "1": { ... }
+    }
+}
+"""
+
+database = "flashcards.db"
+shelve.open = partial(shelve.open, writeback=True)
+
+with shelve.open(database) as db:
+    db.setdefault("decks", {})
+    db.setdefault("templates", {
+        "Q/A": {
+            "question": "{{ word }}",
+            "answer": "{{ word }}",
+            "preview": "{{ question.word }} -> {{ answer.word }}",
+            "form": """
+                <label for='question'>Question</label>
+                <input type='text' name='question.word' value={{ question.word }}>
+
+                <label for='answer'>Answer</label>
+                <input type='text' name='answer.word'  value={{ answer.word }}>
+            """
+        }
+    })
 
 
 # Create the FastAPI app
@@ -25,22 +95,12 @@ app.mount(
     "/static", StaticFiles(directory=Path(__file__).parent / "static"), name="static"
 )
 
-db = shelve.open("flashcards.db", writeback=True)
-card_templates = db.get("templates", {
-        "Q/A": {
-            "question": "{{ word }}",
-            "answer": "{{ word }}",
-            "preview": "{{ question }} -> {{ answer }}"
-        }})
-decks = db.get("decks", {})
-print(decks)
-
 
 def get_jinja2():
     """Get Jinja2 dependency function. you can define more functions, filters or global vars here"""
 
     @pass_context
-    def url_for(context: dict, name: str, **path_params: typing.Any) -> str:
+    def url_for(context: dict, name: str, **path_params: Any) -> str:
         request = context["request"]
         return request.url_for(name, **path_params)
 
