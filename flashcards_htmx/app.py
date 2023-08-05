@@ -132,7 +132,7 @@ app.mount(
 async def http_exception_handler(request: Request, exc: HTTPException):
     template = get_jinja2().get_template("public/http_error.html")
     response = template.render(request=request, code=exc.status_code, message=exc.detail)
-    return HTMLResponse(response)
+    return HTMLResponse(response, status_code=exc.status_code)
 
 
 from flashcards_htmx.api.public import router as public_router  # noqa: F401, E402
@@ -140,9 +140,7 @@ from flashcards_htmx.api.private import router as private_router  # noqa: F401, 
 from flashcards_htmx.api.components import (
     router as private_components,
 )  # noqa: F401, E402
-from flashcards_htmx.api.json import router as json_router  # noqa: F401, E402
 
 app.include_router(public_router)
 app.include_router(private_router)
 app.include_router(private_components)
-app.include_router(json_router)

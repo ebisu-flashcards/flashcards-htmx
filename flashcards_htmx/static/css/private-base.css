@@ -226,7 +226,7 @@ section.cards {
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr auto auto;
+    grid-template-columns: 1fr auto auto auto;
     align-items: center;
     gap: 1rem;
 }

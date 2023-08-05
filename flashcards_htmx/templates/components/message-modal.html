@@ -1,10 +1,10 @@
 <div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
     <div class="modal-underlay" _="on click trigger closeModal"></div>
-    <div class="modal-content box">
+    <div class="modal-content box" style="padding: 2rem; text-align:center;">
         <h1>{{ title }}</h1>
-        <p>{{ content }}</p>
+        {{ content|safe }}
         <div class="buttons">
-            <button class="positive" _="on click trigger closeModal">{{ positive }}</button>
+            <a href="{{ url_for(delete_endpoint, **endpoint_params) }}" class="positive">{{ positive }}</a>
             <button class="negative" _="on click trigger closeModal">{{ negative }}</button>
         </div>
     </div>

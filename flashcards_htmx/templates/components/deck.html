@@ -8,6 +8,9 @@
             <a class="dotted" href="{{ url_for('cards_page', deck_id=id) }}">
                 <i class="fas fa-search"></i>
             </a>
+            <a class="dotted" href="{{ url_for('export_deck_endpoint', deck_id=id) }}">
+                <i class="fas fa-download"></i>
+            </a>
         </div>
         <p>{{ deck.description }}</p>
         <p class="deck-type">{{ deck.algorithm }}</p>

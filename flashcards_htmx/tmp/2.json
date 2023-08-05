@@ -1,0 +1,35 @@
+{
+    "name": "2",
+    "description": "111",
+    "algorithm": "Random",
+    "cards": {
+        "1": {
+            "data": {
+                "question": {
+                    "word": "1"
+                },
+                "answer": {
+                    "word": "2"
+                },
+                "preview": {}
+            },
+            "tags": [
+                "1"
+            ],
+            "type": "Q/A"
+        },
+        "4": {
+            "data": {
+                "question": {
+                    "word": "4"
+                },
+                "answer": {
+                    "word": "5"
+                },
+                "preview": {}
+            },
+            "tags": [],
+            "type": "Q/A"
+        }
+    }
+}

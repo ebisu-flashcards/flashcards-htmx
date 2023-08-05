@@ -42,7 +42,7 @@ async def cards_component(
         
         card_templates = db["templates"]
         for card in deck["cards"].values():
-            card["preview"] = Template(card_templates[card["type"]]["preview"]).render(**card["data"])
+            card["rendered_preview"] = Template(card_templates[card["type"]]["preview"]).render(**card["data"])
     return render(deck=deck, deck_id=deck_id)
 
 
@@ -104,10 +104,12 @@ async def deck_confirm_delete_component(
             raise HTTPException(status_code=404, detail="Deck not found")
         
     return render(
-        title=f"Deleting {deck['name']}",
-        content=f"Are you really sure you wanna delete the deck {deck['name']}? It contains {len(deck['cards'])} cards.",
+        title=f"Deleting deck",
+        content=f"Are you really sure you wanna delete the deck '{deck['name']}'? It contains {len(deck['cards'])} cards.",
         positive=f"Yes, delete {deck['name']}",
         negative=f"No, don't delete",
+        delete_endpoint="delete_deck_endpoint",
+        endpoint_params={"deck_id": deck_id},
     )
 
 
@@ -123,10 +125,15 @@ async def card_confirm_delete_component(
         deck = db["decks"].get(deck_id, {})
         if not deck:
             raise HTTPException(status_code=404, detail="Deck not found")
-        
+        card = deck["cards"].get(card_id, {})
+        if not card:
+            raise HTTPException(status_code=404, detail="Card not found")
+        card_templates = db["templates"]
     return render(
-        title=f"Deleting card n. {deck['cards'][card_id]['id']}",
-        content=f"Are you really sure you wanna delete this card? [TODO show card preview]",
+        title=f"Deleting card",
+        content=f"<p>Are you really sure you wanna delete this card?</p><br>" + Template(card_templates[card["type"]]["preview"]).render(**card["data"]),
         positive=f"Yes, delete it",
         negative=f"No, don't delete",
+        delete_endpoint="delete_card_endpoint",
+        endpoint_params={"deck_id": deck_id, "card_id": card_id},
     )

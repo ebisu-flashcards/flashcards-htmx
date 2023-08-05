@@ -47,6 +47,11 @@
       <a href="{{ new_item_endpoint }}">
         <i class="fas fa-plus"></i>
       </a>
+      {% if upload_item_endpoint %}
+      <a href="{{ upload_item_endpoint }}">
+        <i class="fas fa-upload"></i>
+      </a>
+      {% endif %}
       <div class="paginator">
         <a class="dotted"><i class="fa fa-chevron-left"></i></a>
         <p>X of XX</p>

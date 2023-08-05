@@ -1,0 +1,25 @@
+{% extends "private/base.html" %}
+
+
+{% block css%}
+<link href="/static/css/deck-details.css" rel="stylesheet">
+<link href="/static/css/modal.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block page %}
+<section id="single-card">
+    <div class="box main-card">  
+        <form action="{{ url_for('import_deck_endpoint') }}" method="post" enctype="multipart/form-data">
+            <div>
+                <input type="file" name="file">
+            </div>
+            <div class="feedback feedback-negative hidden"><p></p></div>
+            <div class="buttons">
+                <button type="submit" class="positive">Import</button>
+                <a href="{{ url_for('home_page') }}" class="neutral">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
