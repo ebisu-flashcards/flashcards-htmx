@@ -43,10 +43,11 @@ async def cards_component(
             raise HTTPException(status_code=404, detail="Deck not found")
 
         card_templates = db["templates"]
+
         for card in deck["cards"].values():
-            card["rendered_preview"] = Template(
-                card_templates[card["type"]]["preview"]
-            ).render(**card["data"])
+            card["rendered_preview"] = """Template(
+                card_templates[card["template"]]["preview"]
+            ).render(**card["data"])"""
     return render(deck=deck, deck_id=deck_id)
 
 
@@ -67,15 +68,13 @@ async def create_card_page(deck_id: str, render=Depends(template("private/card.h
         navbar_title=deck["name"],
         deck=deck,
         deck_id=deck_id,
-        card={
+        card= {
             "id": id,
-            "data": {
-                "question": {},
-                "answer": {},
-                "preview": {},
+            "template": {
+                "name": "Q/A"
             },
+            "data": {},
             "tags": [],
-            "reviews": {},
         },
         card_id=id,
         card_templates=card_templates,
@@ -119,24 +118,12 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
             deck["cards"][card_id] = {
                 **deck["cards"].get(card_id, {"reviews": {}}),
                 "data": {
-                    "question": {
-                        key[len("question.") :]: value
-                        for key, value in form.items()
-                        if key.startswith("question.")
-                    },
-                    "answer": {
-                        key[len("answer.") :]: value
-                        for key, value in form.items()
-                        if key.startswith("answer.")
-                    },
-                    "preview": {
-                        key[len("preview.") :]: value
-                        for key, value in form.items()
-                        if key.startswith("preview.")
-                    },
+                    key[len("data.") :]: value
+                    for key, value in form.items()
+                    if key.startswith("question.")
                 },
                 "tags": [tag.strip() for tag in form["tags"].split(",") if tag.strip()],
-                "type": form["type"],
+                "template": {"id": form["template"], "card": "direct"},  # FIXME
             }
 
     return RedirectResponse(
@@ -165,7 +152,7 @@ async def card_confirm_delete_component(
     return render(
         title=f"Deleting card",
         content=f"<p>Are you really sure you wanna delete this card?</p><br>"
-        + Template(card_templates[card["type"]]["preview"]).render(**card["data"]),
+        + Template(card_templates[card["template"]["name"]]["cards"][card["template"]["card"]]["preview"]).render(**card["data"]),
         positive=f"Yes, delete it",
         negative=f"No, don't delete",
         delete_endpoint="delete_card_endpoint",

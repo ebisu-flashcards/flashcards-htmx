@@ -9,29 +9,27 @@
 
 {% block page %}
 <section id="single-card">
-    <div class="box main-card">  
-        
-        <form action="{{ url_for('save_deck_endpoint', deck_id=deck_id) }}" method="post">
+    <form action="{{ url_for('save_deck_endpoint', deck_id=deck_id) }}" method="post">
+        <div class="box main-card">  
             <div>
-                <input id="deck-name-form" type="text" name="name", placeholder="Deck Name" value="{{ deck.name }}"></input>
-                <input id="deck-desc-form" type="text" name="description" placeholder="Deck Description" value="{{ deck.description }}"></input>
-                <input id="deck-type-form" class="hidden" type="text" name="algorithm" value="{{ deck.algorithm }}"></input>
-                <div id="extra-fields"></div>
+                <input class="h1" type="text" name="name", placeholder="Name" value="{{ deck.name }}"></input>
+                <input type="text" name="description" placeholder="Description" value="{{ deck.description }}"></input>
+                <input type="text" name="tags" placeholder="Tags" value="{{ deck.tags|join(', ') }}"></input>
+
+                <div class="buttons">
+                    <button type="submit" class="positive">Save</button>
+                    <a href="{{ url_for('home_page') }}" class="neutral">Cancel</a>
+                    {% if deck_id %}
+                    <button type="button" class="negative" 
+                        hx-get="{{ url_for('deck_confirm_delete_component', deck_id=deck_id) }}" 
+                        hx-target="body" hx-swap="beforeend">
+                        Delete
+                    </button>
+                    {% endif %}
+                </div>
             </div>
-            <div class="feedback feedback-negative hidden"><p></p></div>
-            <div class="buttons">
-                <button type="submit" class="positive">Save</button>
-                <a href="{{ url_for('home_page') }}" class="neutral">Cancel</a>
-                {% if deck_id %}
-                <button type="button" class="negative" 
-                    hx-get="{{ url_for('deck_confirm_delete_component', deck_id=deck_id) }}" 
-                    hx-target="body" hx-swap="beforeend">
-                    Delete
-                </button>
-                {% endif %}
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
 
 </section>
 {% endblock %}

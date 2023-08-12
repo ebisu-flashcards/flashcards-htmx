@@ -1,9 +1,23 @@
-<div>
-    <div class="box">
-        <a class="content card" href="{{ url_for('edit_template_page', template_id=id) }}" style="display: flex; flex-direction: column;">
+<div class="box">
+    <div class="content">
+        <div class="title">
             <h1>{{ template.name }}</h1>
-            <p>{{ template.description }}</p>
-            <p class="comment">Used by XXX cards</p>
-        </a>
+            <a class="dotted icon" href="{{ url_for('view_template_page', template_id=id) }}">
+                <i class="fas fa-search"></i>
+            </a>
+            <a class="dotted icon" href="{{ url_for('clone_template_page', template_id=id) }}">
+                <i class="fas fa-copy"></i>
+            </a>
+            <a 
+                class="dotted icon negative"
+                hx-get="{{ url_for('template_confirm_delete_component', template_id=id) }}" 
+                hx-target="body" hx-swap="beforeend"
+                {% if template.usage %}disabled{% endif%} {% if template.usage %}disabled{% endif%}
+            >
+                <i class="fas fa-trash"></i>
+            </a>
+        </div>
+        <p>{{ template.description }}</p>
+        <p class="comment">Used by {{ template.usage }} cards.</p>
     </div>
 </div>

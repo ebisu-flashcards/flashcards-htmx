@@ -5,6 +5,7 @@ from pathlib import Path
 from datetime import datetime
 import importlib.metadata
 from functools import partial
+from textwrap import dedent
 
 from jinja2 import Environment, pass_context
 from jinja2.loaders import PackageLoader
@@ -17,25 +18,16 @@ from fastapi.exceptions import HTTPException, StarletteHTTPException
 
 __version__ = importlib.metadata.version("flashcards_htmx")
 
-"""
+'''
 Data structure:
 
 {
     "templates": {
         "1": {
-                "name": "Q/A",
-                "description": "Simple template with a question and an answer.",
-                "question": "{{ word }}",
-                "answer": "{{ word }}",
-                "preview": "{{ question.word }} -> {{ answer.word }}",
-                "form": '''
-                    <label for='question'>Question</label>
-                    <input type='text' name='question.word' value={{ question.word }}>
-
-                    <label for='answer'>Answer</label>
-                    <input type='text' name='answer.word'  value={{ answer.word }}>
-                ''',
-            }
+            "name": "Q/A with reverse",
+            "description": "Simple template with a question and an answer. Generates the reverse card as well.",
+            ... see default template ...
+        }
     }
     "decks": {
         "0": {
@@ -44,20 +36,14 @@ Data structure:
             "algorithm": "Random",
             "cards": {
                 "0": {
-                    "type": "Q/A",
+                    "template": {
+                        "name": "Q/A",
+                        "card": "direct"
+                    }
                     "tags": ["tag 0"],
                     "data": {
-                        "question": {
-                            "word": "Question 0",
-                            "example": "Example 0",
-                        },
-                        "answer": {
-                            "word": "Answer 0",
-                            "context": "Some context"
-                        },
-                        "preview": {
-                            "divider": " -> ",
-                        }
+                        "question": "Question 0",
+                        "answer": "Answer 0"
                     },
                     "reviews: {
                         "0": { 
@@ -72,7 +58,7 @@ Data structure:
         "1": { ... }
     }
 }
-"""
+'''
 
 
 database = "flashcards.db"
@@ -83,19 +69,58 @@ with shelve.open(database) as db:
     db.setdefault(
         "templates",
         {
-            "1": {
-                "name": "Q/A",
+            str(hash("Simple Q/A")): {
+                "name": "Simple Q/A",
                 "description": "Simple template with a question and an answer.",
-                "question": "{{ word }}",
-                "answer": "{{ word }}",
-                "preview": "{{ question.word }} -> {{ answer.word }}",
-                "form": """
-                <label for='question'>Question</label>
-                <input type='text' name='question.word' value={{ question.word }}>
 
-                <label for='answer'>Answer</label>
-                <input type='text' name='answer.word'  value={{ answer.word }}>
-            """,
+                # NOTE: Everything from here will be exec-ed
+                # NOTE: The code must produce a Jinja2 template, but it can contain as many Jinja tags and JS as needed
+                "form": dedent("""
+                    <label for='question'>Question</label>
+                    <input type='text' name='question' value={{ question }}>
+
+                    <label for='answer'>Answer</label>
+                    <input type='text' name='answer'  value={{ answer }}>
+                """),
+                "cards": {
+                    "card": {
+                        "sides": {
+                            "Question": "{{ question }}",
+                            "Answer": "{{ answer }}",
+                        },
+                        "preview": "{{ question }} -> {{ answer }}",
+                        "flip_order": "['Question', 'Answer']",
+                    }
+                }
+            },
+            str(hash("Q/A with reverse")): {
+                "name": "Q/A with reverse",
+                "description": "Simple template with a question and an answer. Generates the reverse card as well.",
+                "form": dedent("""
+                    <label for='question'>Question</label>
+                    <input type='text' name='question' value={{ question }}>
+
+                    <label for='answer'>Answer</label>
+                    <input type='text' name='answer'  value={{ answer }}>
+                """),
+                "cards": {
+                    "direct": {
+                        "sides": {
+                            "Question": "{{ question }}",
+                            "Answer": "{{ answer }}",
+                        },
+                        "preview": "{{ question }} -> {{ answer }}",
+                        "flip_order": "['Question', 'Answer']",
+                    },
+                    "reverse": {
+                        "sides": {
+                            "Question": "{{ answer }}",
+                            "Answer": "{{ question }}",
+                        },
+                        "preview": "{{ answer }} -> {{ question }}",
+                        "flip_order": "['Question', 'Answer']",
+                    }
+                }
             }
         },
     )

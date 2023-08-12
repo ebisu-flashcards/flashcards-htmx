@@ -1,61 +1,19 @@
 {
-    "name": "1",
-    "description": "111",
-    "algorithm": "Random",
     "cards": {
         "1": {
+            "reviews": {},
             "data": {
-                "question": {
-                    "word": "1"
-                },
-                "answer": {
-                    "word": "2"
-                },
+                "question": {},
+                "answer": {},
                 "preview": {}
             },
             "tags": [
-                "1"
+                "a"
             ],
-            "type": "Q/A"
-        },
-        "2": {
-            "data": {
-                "question": {
-                    "word": "2"
-                },
-                "answer": {
-                    "word": "3"
-                },
-                "preview": {}
-            },
-            "tags": [],
-            "type": "Q/A"
-        },
-        "3": {
-            "data": {
-                "question": {
-                    "word": "3"
-                },
-                "answer": {
-                    "word": "4"
-                },
-                "preview": {}
-            },
-            "tags": [],
-            "type": "Q/A"
-        },
-        "4": {
-            "data": {
-                "question": {
-                    "word": "4"
-                },
-                "answer": {
-                    "word": "5"
-                },
-                "preview": {}
-            },
-            "tags": [],
-            "type": "Q/A"
+            "type": "1"
         }
-    }
+    },
+    "name": "1",
+    "description": "111111",
+    "algorithm": "Random"
 }

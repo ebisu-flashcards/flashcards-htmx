@@ -1,19 +1,24 @@
 <div class="box">
-    <div class="content">
+    <div style="margin-bottom:0;">
         <div class="title">
             <h1>{{ deck.name }}</h1>
-            <a class="dotted" href="{{ url_for('edit_deck_page', deck_id=id) }}">
+            <a class="dotted icon" href="{{ url_for('edit_deck_page', deck_id=id) }}">
                 <i class="fas fa-pencil-alt"></i>
             </a>
-            <a class="dotted" href="{{ url_for('cards_page', deck_id=id) }}">
+            <a class="dotted icon" href="{{ url_for('cards_page', deck_id=id) }}">
                 <i class="fas fa-search"></i>
             </a>
-            <a class="dotted" href="{{ url_for('export_deck_endpoint', deck_id=id) }}">
+            <a class="dotted icon" href="{{ url_for('export_deck_endpoint', deck_id=id) }}">
                 <i class="fas fa-download"></i>
             </a>
         </div>
         <p>{{ deck.description }}</p>
-        <p class="deck-type">{{ deck.algorithm }}</p>
+        <span>
+            <span class="tag">{{ deck.algorithm }}</span>  
+            {% for tag in deck.tags %}
+                <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </span>
     </div>
     <a class="positive study" href="{{ url_for('study_page', deck_id=id) }}">
         <i class="fas fa-book-open"></i>&nbsp; Study

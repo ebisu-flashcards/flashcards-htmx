@@ -58,7 +58,7 @@ async def create_deck_page(render=Depends(template("private/deck.html"))):
 
 @router.get("/decks/import", response_class=HTMLResponse)
 async def import_deck_page(render=Depends(template("private/import.html"))):
-    return render()
+    return render(navbar_title="Import Deck")
 
 
 @router.post("/decks/import", response_class=RedirectResponse)
@@ -121,7 +121,8 @@ async def save_deck_endpoint(deck_id: str, request: Request):
                 **db["decks"].get(deck_id, {"cards": {}}),
                 "name": form["name"],
                 "description": form["description"],
-                "algorithm": form["algorithm"],
+                "tags": [tag.strip() for tag in form["tags"].split(",") if tag.strip()],
+                "algorithm": "Random"
             }
     return RedirectResponse(
         request.url_for("home_page"), status_code=status.HTTP_302_FOUND

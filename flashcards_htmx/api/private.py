@@ -53,6 +53,7 @@ async def study_component(
         card["rendered_question"] = Template(
             db["templates"][card["type"]]["question"]
         ).render(**card["data"]["question"])
+        
         card["rendered_answer"] = Template(
             db["templates"][card["type"]]["answer"]
         ).render(**card["data"]["answer"])

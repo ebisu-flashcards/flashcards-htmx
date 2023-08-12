@@ -7,16 +7,16 @@
 {% block page %}
 <section id="single-card">
     <div class="box main-card">
-    
-        <h3>Templates</h3>
-        <a href="{{ url_for('templates_page') }}">Manage Templates</a>
+        <div>
+            <h3>Templates</h3>
+            <a href="{{ url_for('templates_page') }}">Manage Templates</a>
 
 
-        <h3>Account</h3>
-        <a class="logout" href="{{ url_for('logout_page') }}">Logout</a>  
-        <a href="#">Change Password</a>
-        <a class="danger" href="#">Delete Account</a>
-
+            <h3>Account</h3>
+            <a class="logout" href="{{ url_for('logout_page') }}">Logout</a>  
+            <a href="#">Change Password</a>
+            <a class="danger" href="#">Delete Account</a>
+        </div>
     </div>
 </section>
 {% endblock %}

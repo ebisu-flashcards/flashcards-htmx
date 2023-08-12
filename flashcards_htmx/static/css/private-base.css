@@ -123,7 +123,9 @@ a.borderless:hover {
     font-size: 1.3rem;
     font-style: italic;
     border: 0;
+    margin: 0;
     border-bottom: 1px solid var(--gray);
+    width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -143,13 +145,11 @@ a.borderless:hover {
     display: inline;
 }
 
-
-.paginator {
-    display: flex;
-    gap: 1rem;
-    width: min-content;
-    white-space: nowrap;
+.search p {
+    min-width: max-content;
 }
+
+
 
 /*----------------------------------------------------------------------------*/
 /*     Container Styles
@@ -184,10 +184,14 @@ section.cards {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 1rem;
 }
 
-.box .content {
-    margin:1.5rem;
+.box > div {
+    margin: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 }
 
 .box p {
@@ -196,7 +200,17 @@ section.cards {
 
 .box a,     
 .box button {
-    padding: 0.75rem;
+    padding: 0.75rem 0;
+    font-size: 1rem;
+}
+
+.icon {
+    font-size: 1rem;
+    padding: 0.75rem !important;
+}
+
+.text-center {
+    text-align: center;
 }
 
 /* style for whole clickable boxes, see cards browser */ 
@@ -231,10 +245,9 @@ section.cards {
     gap: 1rem;
 }
 
-.box h1 {
+.box h1, .box h2, .box h3, .box h4, .box h5, .box h6 {
     color: black;
     background-color: transparent;
-    font-size: 1.5rem;
     font-weight: bold;
     text-transform: uppercase;
     display:inline;
@@ -243,13 +256,19 @@ section.cards {
     border-bottom: 1px dashed var(--dark-gray);
 }
 
+.box h1 {
+    font-size: 1.5rem;
+}
+
 .box .buttons {
-    padding-top: 1rem;
-    margin-top: 1rem;
-    border-top: 1px dashed var(--gray);
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     grid-gap: 1rem;
+    padding: 0.5rem;
+}
+
+.box hr {
+    border-top: 1px dashed var(--gray);
 }
 
 .box .study {
@@ -267,6 +286,7 @@ section.cards {
 
 .box .negative {
     background-color: var(--danger);
+    color: var(--white);
 }
 
 .tags {
@@ -307,19 +327,8 @@ section#double-card {
 }
 
 .main-card {
-    flex-grow: 10;
     max-width: 500px;
     margin: auto;
-    padding: 2rem min(2rem, 3%);
-    
-    border: 1px solid var(--gray);
-    border-radius: 1rem;
-    box-shadow: 5px 5px var(--dark-gray);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1rem;
 }
 
 section#double-card .main-card {
@@ -344,29 +353,48 @@ section#double-card .main-card {
 /*     Form Styles
 /*----------------------------------------------------------------------------*/
 
-input[type="text"] {
+input[type="text"], textarea {
     color: var(--dark-gray);
-    background-color: #eee;
     text-align: unset;
-    font-style: italic;
+    font-size: 1rem;
     display: block;
-    margin: 0.75rem 0;
-    padding: 0.5rem;
     border: 0;
-    width: 95%;
+    border-bottom: 1px dotted var(--dark-gray);
+}
+
+input[type="text"]::placeholder, textarea::placeholder {
+    color: var(--gray);
+    font-style: italic;
+ }
+
+textarea {
+    border: 1px dotted var(--dark-gray);
 }
 
 /*----------------------------------------------------------------------------*/
 /*     Deck Styles
 /*----------------------------------------------------------------------------*/
 
-.deck-type {
+.tag {
     display: inline-block;
     background: white;
+    color: var(--dark-gray);
     font-size: 10pt;
     font-style: italic;
     padding: 0.3rem 0.5rem;
     margin: 0;
     border: 1px dashed var(--gray);
     border-radius: 2px;
+}
+
+.h1 {
+    color: black;
+    text-align: unset;
+    font-size: 1.5rem !important;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: block;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px dashed var(--dark-gray);
 }
