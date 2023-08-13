@@ -6,6 +6,7 @@ from datetime import datetime
 import importlib.metadata
 from functools import partial
 from textwrap import dedent
+from hashlib import md5
 
 from jinja2 import Environment, pass_context
 from jinja2.loaders import PackageLoader
@@ -22,11 +23,11 @@ __version__ = importlib.metadata.version("flashcards_htmx")
 Data structure:
 
 {
-    "templates": {
+    "schemas": {
         "1": {
             "name": "Q/A with reverse",
-            "description": "Simple template with a question and an answer. Generates the reverse card as well.",
-            ... see default template ...
+            "description": "Simple schema with a question and an answer. Generates the reverse card as well.",
+            ... see default schema ...
         }
     }
     "decks": {
@@ -34,17 +35,12 @@ Data structure:
             "name": "Deck 0",
             "description": "Description for deck 0",
             "algorithm": "Random",
-            "cards": {
+            "cards_data": {
                 "0": {
-                    "template": {
-                        "name": "Q/A",
-                        "card": "direct"
-                    }
+                    "schema": "Q/A"
                     "tags": ["tag 0"],
-                    "data": {
-                        "question": "Question 0",
-                        "answer": "Answer 0"
-                    },
+                    "question": "Question 0",
+                    "answer": "Answer 0"
                     "reviews: {
                         "0": { 
                             "date": "2021-01-01",
@@ -67,58 +63,46 @@ shelve.open = partial(shelve.open, writeback=True)
 with shelve.open(database) as db:
     db.setdefault("decks", {})
     db.setdefault(
-        "templates",
+        "schemas",
         {
-            str(hash("Simple Q/A")): {
+            md5("Simple Q/A".encode()).hexdigest(): {
                 "name": "Simple Q/A",
-                "description": "Simple template with a question and an answer.",
+                "description": "Simple schema with a question and an answer.",
 
-                # NOTE: Everything from here will be exec-ed
-                # NOTE: The code must produce a Jinja2 template, but it can contain as many Jinja tags and JS as needed
                 "form": dedent("""
                     <label for='question'>Question</label>
-                    <input type='text' name='question' value={{ question }}>
+                    <input type='text' name='question' value='{{ question }}'>
 
                     <label for='answer'>Answer</label>
-                    <input type='text' name='answer'  value={{ answer }}>
+                    <input type='text' name='answer' value='{{ answer }}'>
                 """),
+                "preview": "{{ question }} -> {{ answer }}",
                 "cards": {
                     "card": {
-                        "sides": {
-                            "Question": "{{ question }}",
-                            "Answer": "{{ answer }}",
-                        },
-                        "preview": "{{ question }} -> {{ answer }}",
-                        "flip_order": "['Question', 'Answer']",
+                        "question": "{{ question }}",
+                        "answer": "{{ answer }}",
                     }
                 }
             },
-            str(hash("Q/A with reverse")): {
+            md5("Q/A with reverse".encode()).hexdigest(): {
                 "name": "Q/A with reverse",
-                "description": "Simple template with a question and an answer. Generates the reverse card as well.",
+                "description": "Simple schema with a question and an answer. Generates the reverse card as well.",
                 "form": dedent("""
-                    <label for='question'>Question</label>
-                    <input type='text' name='question' value={{ question }}>
+                    <label for='question'>Question:</label>
+                    <input type='text' name='question' value='{{ question }}'>
 
-                    <label for='answer'>Answer</label>
-                    <input type='text' name='answer'  value={{ answer }}>
+                    <label for='answer'>Answer:</label>
+                    <input type='text' name='answer'  value='{{ answer }}'>
                 """),
+                "preview": "{{ question }} <-> {{ answer }}",
                 "cards": {
                     "direct": {
-                        "sides": {
-                            "Question": "{{ question }}",
-                            "Answer": "{{ answer }}",
-                        },
-                        "preview": "{{ question }} -> {{ answer }}",
-                        "flip_order": "['Question', 'Answer']",
+                        "question": "{{ question }}",
+                        "answer": "{{ answer }}",
                     },
                     "reverse": {
-                        "sides": {
-                            "Question": "{{ answer }}",
-                            "Answer": "{{ question }}",
-                        },
-                        "preview": "{{ answer }} -> {{ question }}",
-                        "flip_order": "['Question', 'Answer']",
+                        "question": "{{ answer }}",
+                        "answer": "{{ question }}",
                     }
                 }
             }
@@ -177,12 +161,14 @@ async def http_exception_handler(request: Request, exc: HTTPException):
 
 from flashcards_htmx.api.public import router as public_router  # noqa: F401, E402
 from flashcards_htmx.api.private import router as private_router  # noqa: F401, E402
+from flashcards_htmx.api.study import router as study_router  # noqa: F401, E402
 from flashcards_htmx.api.decks import router as decks_router  # noqa: F401, E402
 from flashcards_htmx.api.cards import router as cards_router  # noqa: F401, E402
-from flashcards_htmx.api.templates import router as templates_router  # noqa: F401, E402
+from flashcards_htmx.api.schemas import router as schemas_router  # noqa: F401, E402
 
 app.include_router(public_router)
 app.include_router(private_router)
+app.include_router(study_router)
 app.include_router(decks_router)
 app.include_router(cards_router)
-app.include_router(templates_router)
+app.include_router(schemas_router)

@@ -1,0 +1,132 @@
+{% extends "private/base.html" %}
+
+
+{% block css%}
+<link href="/static/css/deck-details.css" rel="stylesheet">
+<link href="/static/css/modal.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block page %}
+<script>
+    function addCard(card_name, card) {
+        console.log("####", card_name);
+
+        var sides = "";
+        for (const [side_name, side] of Object.entries(card.sides)) {
+            sides += `
+            <div id="cards__${card_name}__sides__${side_name}" style="display: flex; flex-direction: column;">
+                <div class="title">
+                    <input class="h3" type="text" name="cards__${card_name}__sides__${side_name}-name" value="${side_name}" data-current-side="${side_name}" oninput='updateSideIds(this)'>
+                    <p></p>
+                    <p></p>
+                    <i class="fas fa-trash" style="color: red;" onclick="deleteSide('cards__${card_name}__sides__${side_name}')"></i>
+                </div>
+                <div style="display: flex; flex-direction: column;">
+                    <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
+                        <div class="cards__${card_name}__sides__${side_name}-preview">${side}</div>
+                    </div>
+                    <textarea name="cards__${card_name}__sides__${side_name}" oninput='updatePreview("cards__${card_name}__sides__${side_name}")'>${side}</textarea>
+                </div>
+            </div>  `;
+        }
+
+        var schema = `
+        <div id="cards__${card_name}__div" class="box">
+            <div>
+                <div class="title">
+                    <input class="h2" type="text" name="name" data-current-card="${card_name}" value="${card_name}" oninput='updateCardIds(this)'>
+                    <p></p>
+                    <a class="dotted icon negative" onclick="deleteCard('${card_name}')">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                </div>
+
+                ${sides}
+
+                <a class="dotted" onclick="addSide('${card_name}')"><i class="fas fa-plus"></i></a>
+                
+                <div style="display: flex; flex-direction: column;">
+                    <label for="cards__${card_name}__preview">Preview</label>
+                    <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
+                        <div class="cards__${card_name}__preview-preview">${card.preview}</div>
+                    </div>
+                    <textarea name="cards__${card_name}__preview" oninput='updatePreview('cards__${card_name}__preview')'></textarea>
+                </div>
+
+                <div style="display: flex; flex-direction: column;">
+                    <label for="cards__${card_name}__flip_order">Flip order</label>
+                    <textarea name="cards__${card_name}__flip_order"></textarea>
+                </div>
+            </div>
+        </div>`;
+
+        var addcard = document.getElementById("addCard");
+        addcard.insertAdjacentHTML('beforebegin', schema);
+    }
+
+    function updatePreview(textarea){
+        var preview = document.querySelector("."+textarea.name+"-preview");
+        preview.innerHTML = textarea.value;
+    }
+
+    function deleteCard(card_name){
+        var card = document.getElementById(card_name);
+        card.remove();
+    }
+
+    function updateCardIds(element){
+        var currentCard = element.dataset.currentCard;
+        var newCard = element.value;
+        newContent = element.parentNode.parentNode.innerHTML.replaceAll("cards__"+currentCard+"__", "cards__"+newCard+"__");
+
+        console.log(newContent)
+        element.parentNode.parentNode.innerHTML = document.createElement(newContent);
+    }
+
+    function updateSideIds(element){
+        var currentSide = element.dataset.currentSide;
+        var newSide = element.value;
+        console.log(element.parentNode.parentNode);
+        newContent = element.parentNode.parentNode.innerHTML.replaceAll("sides__"+currentSide, "sides__"+newSide);
+        console.log(newContent)
+        element.parentNode.parentNode.innerHTML = document.createElement(newContent);
+    }
+</script>
+
+<section id="single-card">
+    <form action="{{ url_for('save_schema_endpoint') }}" method="post">
+        <div class="box main-card">  
+            <div id="content">
+                <input class="h1" type="text" name="name" value="{{ schema.name }}">
+                <textarea name="description">{{ schema.description }}</textarea>    
+
+                <a id="addCard" class="dotted" onclick="addCard('', {'preview': '', 'flip_order': '', 'sides': {}})"><i class="fas fa-plus"></i></a>
+
+                <h3>Form</h3>
+
+                <div style="background-color:#eee; padding: 1rem; border-radius: 0.5rem; ">
+                    <div class="form-preview" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+                </div>
+                <textarea name="form" oninput='updatePreview(this)'>{{ schema.form }}</textarea>
+                <script>updatePreview(document.querySelector("textarea[name='form']"));</script>
+
+                <div class="buttons" style="margin-top: 1rem;">
+                    <button type="submit" class="positive">Save</button>
+                    <a href="{{ url_for('schemas_page') }}" class="neutral">Cancel</a>
+                </div>
+            </div>
+        </div> 
+    </form>
+
+</section>
+
+<script>
+{% for card_name, card in schema.cards.items() %}
+    addCard("{{card_name}}", {{ card|tojson }});
+
+    
+{% endfor %}
+</script>
+
+{% endblock %}

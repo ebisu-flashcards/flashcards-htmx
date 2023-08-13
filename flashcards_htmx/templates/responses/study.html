@@ -1,56 +1,61 @@
 <section id="single-card" hx-target="this" hx-swap="outerHTML">
     
     <div class="main-card box">
+        <div style="gap: 2rem;">
 
-        {% if error %}
-        <div class="problem-card">  
-            <h1>Server Error!</h1>
-            <p>Seems like something went wrong on our servers.<br><br>
-            Please retry in a few minutes and, if the problem persists, contact the developers. It's a bug!</p>
-            <div class="buttons">
-                <a href="{{ url_for('home_page') }}">Go Back</a>  
-            </div>
-        </div>
-        {% else %}
-            
-            {% if not card %}
-
-                <div class="problem-card">  
-                    <h1>No Cards!</h1>
-                    <p>Seems like you have no cards to review.<br><br>
-                    Some deck types have limits on the cards to review for specific timespans:
-                    check your deck settings and make sure your deck contains cards.
-                    </p>
-                    <div class="buttons">
-                        <a href="{{ url_for('cards_page', deck_id=deck_id) }}">Add cards</a>  
-                    </div>    
+            {% if error %}
+            <div class="problem-card">  
+                <h1>Server Error!</h1>
+                <p>Seems like something went wrong on our servers.<br><br>
+                Please retry in a few minutes and, if the problem persists, contact the developers. It's a bug!</p>
+                <div class="buttons">
+                    <a href="{{ url_for('home_page') }}">Go Back</a>  
                 </div>
-
+            </div>
             {% else %}
-
-                <h1 id="question">{{ card.rendered_question }}</h1>
                 
-                <details id="collapsible">
-                    <summary autofocus>
-                        <a>Show the answer</a>
-                    </summary>
+                {% if not card_id %}
 
-                    <div class="feedback">
-                        <h1 id="answer">{{ card.rendered_answer }}</h1>
-                        
+                    <div class="problem-card">  
+                        <h1>No Cards!</h1>
+                        <p>Seems like you have no cards to review.<br><br>
+                        Some deck types have limits on the cards to review for specific timespans:
+                        check your deck settings and make sure your deck contains cards.
+                        </p>
                         <div class="buttons">
-                            <button type="button" class="positive" 
-                                hx-post="{{ url_for('save_review_component', deck_id=deck_id, card_id=card_id, result='right') }}">
-                                Correct
-                            </button>
-                            <button type="button" class="negative" 
-                                hx-post="{{ url_for('save_review_component', deck_id=deck_id, card_id=card_id, result='wrong') }}">
-                                Wrong
-                            </button>
-                        </div>
+                            <a href="{{ url_for('cards_page', deck_id=deck_id) }}">Add cards</a>  
+                        </div>    
                     </div>
-                </details>
+
+                {% else %}
+
+                    <div style="text-align: center;">
+                        {{ question }}
+                    </div>
+                    
+                    <details id="collapsible">
+                        <summary autofocus>
+                            <a>Show the answer</a>
+                        </summary>
+
+                        <div class="feedback" style="display: flex; flex-direction: column; gap: 2rem;">
+
+                            <div style="text-align: center;">
+                                {{ answer }}
+                            </div>
+                               
+                            <div class="buttons">
+                            {% for result, color in buttons.items() %}
+                                <button type="button" style="background-color: {{ color }};"
+                                    hx-post="{{ url_for('save_review_component', deck_id=deck_id, card_id=card_id, card_type=card_type, result=result) }}">
+                                    {{ result }}
+                                </button>
+                            {% endfor %}
+                            </div>
+                        </div>
+                    </details>
+                {% endif %}
             {% endif %}
-        {% endif %}
+        </div>
     </div>
 </section>

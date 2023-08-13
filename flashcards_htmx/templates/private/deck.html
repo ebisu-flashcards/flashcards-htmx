@@ -14,6 +14,17 @@
             <div>
                 <input class="h1" type="text" name="name", placeholder="Name" value="{{ deck.name }}"></input>
                 <input type="text" name="description" placeholder="Description" value="{{ deck.description }}"></input>
+
+                <label for="algorithm">Algorithm:</label>
+                    <select name="algorithm">
+                        <option value="" {% if not deck.algorothm %}selected{% endif %}></option>
+                        {% for algorithm in algorithms %}
+                        <option value="{{ algorithm }}" {% if deck.algorithm == algorithm %}selected{% endif %}>
+                            {{ algorithm }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
                 <input type="text" name="tags" placeholder="Tags" value="{{ deck.tags|join(', ') }}"></input>
 
                 <div class="buttons">

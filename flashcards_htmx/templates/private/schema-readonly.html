@@ -12,48 +12,47 @@
 <section id="single-card">
     <div class="box main-card">  
         <div>
-            <h1>{{ template.name }}</h1>
-            <p>{{ template.description }}</p>    
+            <h1>{{ schema.name }}</h1>
+            <p>{{ schema.description }}</p>    
 
-            {% for card, card_data in template.cards.items() %}
+            {% for card, card_data in schema.cards.items() %}
 
             <div class="box">
                 <div style="margin: 1rem;">
                     <h3>{{ card }}</h3>
                     
-                    {% for side, side_data in card_data.sides.items() %}
                     <div style="display: flex; flex-direction: column;">
-                        <p>{{ side }}</p>
+                        <p>Question</p>
                         <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
-                            <div class="cards__{{ card }}__sides__{{ side }}-preview">{{ side_data|safe }}</div>
-                        </div>
-                    </div>
-                    {% endfor %}
-
-                    <div style="display: flex; flex-direction: column;">
-                        <p>Preview</p>
-                        <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
-                            <div class="cards__{{ card }}__preview-preview">{{ card_data.preview|safe }}</div>
+                            <div class="cards__{{ card }}__sides__question-preview">{{ card_data.question|safe }}</div>
                         </div>
                     </div>
 
                     <div style="display: flex; flex-direction: column;">
-                        <p>Flip order</p>
-                        <p>{{ card_data.flip_order }}</p>
+                        <p>Answer</p>
+                        <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
+                            <div class="cards__{{ card }}__sides__answer-preview">{{ card_data.answer|safe }}</div>
+                        </div>
                     </div>
                 </div>
             </div>
             {% endfor %}  
 
-            <h3>Form</h3>
+            <h3>Preview</h3>
+            <div style="display: flex; flex-direction: column;">
+                <div style="background-color:#eee; padding: 0.5rem; border-radius: 0.5rem;">
+                    <div class="cards__{{ card }}__preview-preview">{{ schema.preview|safe }}</div>
+                </div>
+            </div>
 
+            <h3>Form</h3>
             <div style="background-color:#eee; padding: 1rem; border-radius: 0.5rem; ">
-                <div class="form-preview" style="display: flex; flex-direction: column; gap: 0.5rem;">{{ template.form|safe }}</div>
+                <div class="form-preview" style="display: flex; flex-direction: column; gap: 0.5rem;">{{ schema.form|safe }}</div>
             </div>
 
             <div class="buttons" style="margin-top: 1rem;">
-                <a href="{{ url_for('clone_template_page', template_id=template_id) }}" class="positive">Clone</button>
-                <a href="{{ url_for('templates_page') }}" class="neutral">Back</a>
+                <a href="{{ url_for('clone_schema_page', schema_id=schema_id) }}" class="positive">Clone</button>
+                <a href="{{ url_for('schemas_page') }}" class="neutral">Back</a>
             </div>
         </div>
     </div> 

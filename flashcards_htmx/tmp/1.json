@@ -2,18 +2,25 @@
     "cards": {
         "1": {
             "reviews": {},
-            "data": {
-                "question": {},
-                "answer": {},
-                "preview": {}
-            },
-            "tags": [
-                "a"
-            ],
-            "type": "1"
+            "schema": "8188762617638144474",
+            "question": "A",
+            "answer": "B",
+            "tags": "",
+            "schema_name": "Q/A with reverse",
+            "preview": "A <-> B"
+        },
+        "2": {
+            "reviews": {},
+            "schema": "-8231649682193703413",
+            "question": "a",
+            "answer": "b",
+            "tags": "",
+            "schema_name": "Simple Q/A",
+            "preview": "a -> b"
         }
     },
     "name": "1",
-    "description": "111111",
-    "algorithm": "Random"
+    "description": "1",
+    "tags": [],
+    "algorithm": "HardestFirst"
 }

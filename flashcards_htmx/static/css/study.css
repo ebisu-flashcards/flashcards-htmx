@@ -42,11 +42,6 @@
     display: none;
 }
 
-.feedback {
-    padding: 2rem;
-    padding-bottom: 0;
-}
-
 .feedback .buttons {
     border: none;
 }

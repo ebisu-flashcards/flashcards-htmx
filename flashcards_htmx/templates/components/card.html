@@ -1,15 +1,17 @@
 <div>
     <div class="box" onclick="location.href='{{ url_for('edit_card_page', deck_id=deck_id, card_id=id) }}'" style="cursor:pointer">
         <div>
-            <div>
-                {{ card.rendered_preview|safe }}
+            <div class="text-center">
+                {{ card.preview|safe }}
             </div>
             <div>
                 <span class="text-center">
-                    {% for tag in card.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                    <span class="tag">{{ card.template.name }} {{ card.template.card }}</span>
+                    {% if card.tags %}
+                        {% for tag in card.tags %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    {% endif %}
+                    <span class="tag">{{ card.schema_name }}</span>
                 </span>
             </div>
         </div>

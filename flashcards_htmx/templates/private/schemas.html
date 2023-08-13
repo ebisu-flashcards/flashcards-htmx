@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block page %}
-<div hx-get="{{ url_for('templates_component') }}" hx-trigger="load" hx-swap="outerHTML">
+<div hx-get="{{ url_for('schemas_component') }}" hx-trigger="load" hx-swap="outerHTML">
     {% include "components/loading.html" %}
 </div>
 {% endblock %}

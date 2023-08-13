@@ -15,6 +15,7 @@ templates = Jinja2Templates(directory=Path(__file__).parent / "templates")
 router = APIRouter()
 
 
+
 @router.get("/decks/{deck_id}/cards", response_class=HTMLResponse)
 async def cards_page(
     deck_id: str, request: Request, render=Depends(template("private/cards.html"))
@@ -42,12 +43,11 @@ async def cards_component(
         if not deck:
             raise HTTPException(status_code=404, detail="Deck not found")
 
-        card_templates = db["templates"]
-
+        card_schemas = db["schemas"]
         for card in deck["cards"].values():
-            card["rendered_preview"] = """Template(
-                card_templates[card["template"]]["preview"]
-            ).render(**card["data"])"""
+            card["schema_name"] = card_schemas[card["schema"]]["name"]
+            card["preview"] = Template(card_schemas[card["schema"]]["preview"]).render(**card)
+
     return render(deck=deck, deck_id=deck_id)
 
 
@@ -59,25 +59,20 @@ async def create_card_page(deck_id: str, render=Depends(template("private/card.h
             raise HTTPException(status_code=404, detail="Deck not found")
 
         id = len(db["decks"].get(deck_id, {}).get("cards", {})) + 1
-        card_templates = db["templates"]
-        for template in card_templates.values():
-            template["rendered_form"] = Template(template["form"]).render(
-                question={}, answer={}, preview={}
-            )
+        card_schemas = db["schemas"]
+        for schema in card_schemas.values():
+            schema["rendered_form"] = Template(schema["form"]).render()
     return render(
         navbar_title=deck["name"],
         deck=deck,
         deck_id=deck_id,
         card= {
             "id": id,
-            "template": {
-                "name": "Q/A"
-            },
-            "data": {},
+            "schema": "",
             "tags": [],
         },
         card_id=id,
-        card_templates=card_templates,
+        card_schemas=card_schemas,
     )
 
 
@@ -90,15 +85,13 @@ async def edit_card_page(
         if not deck:
             raise HTTPException(status_code=404, detail="Deck not found")
 
-        card_templates = db["templates"]
+        card_schemas = db["schemas"]
         card = deck["cards"].get(card_id, {})
         if not card:
             raise HTTPException(status_code=404, detail="Card not found")
 
-        for template in card_templates.values():
-            template["rendered_form"] = Template(template["form"]).render(
-                **card["data"]
-            )
+        for schema in card_schemas.values():
+            schema["rendered_form"] = Template(schema["form"]).render(**card)
 
     return render(
         navbar_title=deck["name"],
@@ -106,7 +99,7 @@ async def edit_card_page(
         deck_id=deck_id,
         card=card,
         card_id=card_id,
-        card_templates=card_templates,
+        card_schemas=card_schemas,
     )
 
 
@@ -115,16 +108,14 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
     async with request.form() as form:
         with shelve.open(database) as db:
             deck = db["decks"].get(deck_id, {})
+
             deck["cards"][card_id] = {
                 **deck["cards"].get(card_id, {"reviews": {}}),
-                "data": {
-                    key[len("data.") :]: value
-                    for key, value in form.items()
-                    if key.startswith("question.")
-                },
-                "tags": [tag.strip() for tag in form["tags"].split(",") if tag.strip()],
-                "template": {"id": form["template"], "card": "direct"},  # FIXME
+                **form
             }
+            if deck["cards"][card_id]["tags"]:
+                deck["cards"][card_id]["tags"] = [tag.strip() for tag in form["tags"].split(",") if tag.strip()]
+            print(deck["cards"][card_id])
 
     return RedirectResponse(
         request.url_for("cards_page", deck_id=deck_id),
@@ -148,11 +139,10 @@ async def card_confirm_delete_component(
         card = deck["cards"].get(card_id, {})
         if not card:
             raise HTTPException(status_code=404, detail="Card not found")
-        card_templates = db["templates"]
+        card_schemas = db["schemas"]
     return render(
         title=f"Deleting card",
-        content=f"<p>Are you really sure you wanna delete this card?</p><br>"
-        + Template(card_templates[card["template"]["name"]]["cards"][card["template"]["card"]]["preview"]).render(**card["data"]),
+        content=f"<p>Are you really sure you wanna delete this card?</p><br>" + Template(card_schemas[card["schema"]]["preview"]).render(**card),
         positive=f"Yes, delete it",
         negative=f"No, don't delete",
         delete_endpoint="delete_card_endpoint",

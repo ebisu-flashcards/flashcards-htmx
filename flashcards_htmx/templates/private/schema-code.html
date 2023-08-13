@@ -1,0 +1,34 @@
+{% extends "private/base.html" %}
+
+
+{% block css%}
+<link href="/static/css/deck-details.css" rel="stylesheet">
+<link href="/static/css/modal.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block page %}
+<section id="single-card">
+    <form action="{{ url_for('save_schema_endpoint') }}" method="post">
+        <div class="box main-card">  
+            <div>
+                <p>Always use """ for multiline strings.</p>
+                <textarea name="code" rows="20">{ 
+{% for key, value in schema.items() -%}
+    "{{ key }}": {% if value is not mapping %} "{{ value|string|indent(4) }}", {% else%} {
+        {% for k1, v1 in value.items() -%}
+        '{{ k1 }}': {{ v1|string }},
+        {% endfor -%}
+    },{% endif%}
+{% endfor -%}
+}</textarea>
+                <div class="buttons" style="margin-top: 1rem;">
+                    <button type="submit" class="positive">Save</button>
+                    <a href="{{ url_for('schemas_page') }}" class="neutral">Cancel</a>
+                </div>
+            </div>
+        </div> 
+    </form>
+
+</section>
+{% endblock %}
