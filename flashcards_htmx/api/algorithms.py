@@ -45,8 +45,6 @@ class HardestFirst(Algorithm):
         }
     
     def next_card(self, deck, schemas):
-        print(schemas)
-
         card_id, card_data = random.choice(list(deck["cards"].items()))
         card_schema = schemas[card_data["schema"]]
         card_type, card = random.choice(list(card_schema["cards"].items()))
@@ -67,7 +65,6 @@ class HardestFirst(Algorithm):
         reviews = []
         for card_data in deck["cards"].values():
             reviews += card_data.get("reviews", {}).values()
-        print(card_data["preview"], "storing", card_data["reviews"][card_type] , "values: ", reviews)
 
 
 ALGORITHMS: Dict[str, Algorithm] = {

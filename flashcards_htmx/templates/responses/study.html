@@ -30,7 +30,7 @@
                 {% else %}
 
                     <div style="text-align: center;">
-                        {{ question }}
+                        {{ question|safe }}
                     </div>
                     
                     <details id="collapsible">
@@ -41,7 +41,7 @@
                         <div class="feedback" style="display: flex; flex-direction: column; gap: 2rem;">
 
                             <div style="text-align: center;">
-                                {{ answer }}
+                                {{ answer|safe }}
                             </div>
                                
                             <div class="buttons">

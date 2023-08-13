@@ -1,0 +1,34 @@
+{
+    "cards": {
+        "1": {
+            "reviews": {
+                "he": 1,
+                "eles": 5,
+                "nos": 1,
+                "ele": 3,
+                "tu": 6,
+                "I": 2,
+                "they": 2,
+                "we": 1
+            },
+            "schema": "b4801ea94d7a3570b159f6d2b4648b5d",
+            "pt_inf": "ser",
+            "eng_inf": "to",
+            "I": "am",
+            "you": "are",
+            "he": "is",
+            "eu": "sou",
+            "tu": "es",
+            "ele": "\u00e8",
+            "nos": "somos",
+            "eles": "sao",
+            "tags": "",
+            "schema_name": "Irregular Verb \ud83c\uddf5\ud83c\uddf9",
+            "preview": "ser  (to)"
+        }
+    },
+    "name": "PT",
+    "description": "",
+    "tags": [],
+    "algorithm": "HardestFirst"
+}

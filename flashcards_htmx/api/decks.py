@@ -18,8 +18,6 @@ router = APIRouter()
 
 @router.get("/home", response_class=HTMLResponse)
 async def home_page(request: Request, render=Depends(template("private/home.html"))):
-    with shelve.open(database) as db:
-        print([len(deck["cards"]) for deck in db["decks"].values()])
     return render(
         navbar_title="Home",
         searchable=True,

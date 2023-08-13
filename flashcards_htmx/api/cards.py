@@ -115,7 +115,6 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
             }
             if deck["cards"][card_id]["tags"]:
                 deck["cards"][card_id]["tags"] = [tag.strip() for tag in form["tags"].split(",") if tag.strip()]
-            print(deck["cards"][card_id])
 
     return RedirectResponse(
         request.url_for("cards_page", deck_id=deck_id),
