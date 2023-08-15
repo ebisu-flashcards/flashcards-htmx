@@ -37,7 +37,7 @@
                 <div>
                     <label for="schema">Schema:</label>
                     <select name="schema">
-                        <option value="" {% if not card.schema %}selected{% endif %} onclick="openFields('')"></option>
+                        <option value="" {% if not card.schema %}selected{% endif %} onselect="openFields('')"></option>
                         {% for schema_id, schema in card_schemas.items() %}
                         <option 
                             value="{{ schema_id }}"  
