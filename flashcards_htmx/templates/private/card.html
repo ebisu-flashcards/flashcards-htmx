@@ -7,7 +7,8 @@
 
 {% block page %}
 <script>
-    function openFields(name){
+    function toggleFields(name){
+        var name = document.getElementById("schema").value;
         var schemas = document.querySelectorAll('[id^="schema-"]');
         for (var i = 0; i < schemas.length; i++) {
             schemas[i].style.display = "none";
@@ -36,12 +37,11 @@
             <div>
                 <div>
                     <label for="schema">Schema:</label>
-                    <select name="schema">
-                        <option value="" {% if not card.schema %}selected{% endif %} onselect="openFields('')"></option>
+                    <select name="schema" onchange="toggleFields()">
+                        <option value="" {% if not card.schema %}selected{% endif %}></option>
                         {% for schema_id, schema in card_schemas.items() %}
                         <option 
-                            value="{{ schema_id }}"  
-                            onclick="openFields('{{ schema.name }}')" 
+                            value="{{ schema_id }}"
                             {% if card.schema_name == schema.name %}selected{% endif %} 
                         >
                             {{ schema.name }}
@@ -51,7 +51,7 @@
                 </div>
 
                 {% for schema in card_schemas.values() %}
-                <div id="schema-{{ schema.name }}" style="display: none; flex-direction: column; gap: 1rem;">
+                <div id="schema-{{ schema_id }}" style="display: none; flex-direction: column; gap: 1rem;">
                     {{ schema.rendered_form|safe }}
                 </div>
                 {% endfor %}
@@ -74,7 +74,7 @@
         </div>
     </form>
     <script>
-        openFields('{{ card.schema_name if card else ""}}')
+        toggleFields('{{ card.schema_name if card else ""}}')
     </script>
 
 </section>
