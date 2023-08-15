@@ -8,7 +8,7 @@
 {% block page %}
 <script>
     function toggleFields(name){
-        var name = document.getElementById("schema").value;
+        var name = document.querySelector("select#schema").value;
         var schemas = document.querySelectorAll('[id^="schema-"]');
         for (var i = 0; i < schemas.length; i++) {
             schemas[i].style.display = "none";
@@ -37,12 +37,12 @@
             <div>
                 <div>
                     <label for="schema">Schema:</label>
-                    <select name="schema" onchange="toggleFields()">
+                    <select id="schema" name="schema" onchange="toggleFields()">
                         <option value="" {% if not card.schema %}selected{% endif %}></option>
                         {% for schema_id, schema in card_schemas.items() %}
                         <option 
                             value="{{ schema_id }}"
-                            {% if card.schema_name == schema.name %}selected{% endif %} 
+                            {% if card.schema == schema_id %}selected{% endif %} 
                         >
                             {{ schema.name }}
                         </option>
@@ -50,8 +50,8 @@
                     </select>
                 </div>
 
-                {% for schema in card_schemas.values() %}
-                <div id="schema-{{ schema_id }}" style="display: none; flex-direction: column; gap: 1rem;">
+                {% for id, schema in card_schemas.items() %}
+                <div id="schema-{{ id }}" style="display: none; flex-direction: column; gap: 1rem;">
                     {{ schema.rendered_form|safe }}
                 </div>
                 {% endfor %}
@@ -74,7 +74,7 @@
         </div>
     </form>
     <script>
-        toggleFields('{{ card.schema_name if card else ""}}')
+        toggleFields()
     </script>
 
 </section>
