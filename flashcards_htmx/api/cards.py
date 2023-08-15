@@ -116,6 +116,10 @@ async def save_card_endpoint(deck_id: str, card_id: Optional[str], request: Requ
             if deck["cards"][card_id]["tags"]:
                 deck["cards"][card_id]["tags"] = [tag.strip() for tag in form["tags"].split(",") if tag.strip()]
 
+            # Create empty reviews
+            for card_type in db["schemas"][deck["cards"][card_id]["schema"]]["cards"]:
+                deck["cards"][card_id]["reviews"][card_type] = deck["cards"][card_id]["reviews"].get(card_type, None)
+
     return RedirectResponse(
         request.url_for("cards_page", deck_id=deck_id),
         status_code=status.HTTP_302_FOUND,

@@ -1,0 +1,62 @@
+{
+    "cards": {
+        "1": {
+            "reviews": {
+                "he": 8,
+                "eles": 8,
+                "nos": 7,
+                "ele": 7,
+                "tu": 7,
+                "I": 8,
+                "they": 7,
+                "we": 8,
+                "eu": 7,
+                "you": 7
+            },
+            "schema": "b4801ea94d7a3570b159f6d2b4648b5d",
+            "pt_inf": "Ser",
+            "eng_inf": "to be",
+            "I": "am",
+            "you": "are",
+            "he": "is",
+            "eu": "sou",
+            "tu": "es",
+            "ele": "\u00e8",
+            "nos": "somos",
+            "eles": "sao",
+            "tags": "",
+            "schema_name": "Irregular Verb \ud83c\uddf5\ud83c\uddf9",
+            "preview": "Ser  (to be)"
+        },
+        "2": {
+            "reviews": {
+                "pt_en": 7,
+                "en_pt": 4
+            },
+            "schema": "c5b59cff255bdcca2fecad412d594933",
+            "pt_inf": "Falar",
+            "eng_inf": "to speak",
+            "I": "speak",
+            "you": "speak",
+            "he": "speaks",
+            "eu": "falo",
+            "tu": "falas",
+            "ele": "fala",
+            "nos": "falamos",
+            "eles": "falam",
+            "tags": "",
+            "schema_name": "Regular Verb \ud83c\uddf5\ud83c\uddf9",
+            "preview": "Falar  (to speak)",
+            "pt": "falas",
+            "en": "speak",
+            "card": {
+                "question": "speak",
+                "answer": "falas"
+            }
+        }
+    },
+    "name": "Portuguese \ud83c\uddf5\ud83c\uddf9",
+    "description": "",
+    "tags": [],
+    "algorithm": "HardestFirst"
+}

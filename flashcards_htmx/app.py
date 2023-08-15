@@ -65,8 +65,8 @@ with shelve.open(database) as db:
     db.setdefault(
         "schemas",
         {
-            md5("Simple Q/A".encode()).hexdigest(): {
-                "name": "Simple Q/A",
+            md5("Question & Answer".encode()).hexdigest(): {
+                "name": "Question & Answer",
                 "description": "Simple schema with a question and an answer.",
 
                 "form": dedent("""
@@ -84,9 +84,9 @@ with shelve.open(database) as db:
                     }
                 }
             },
-            md5("Q/A with reverse".encode()).hexdigest(): {
-                "name": "Q/A with reverse",
-                "description": "Simple schema with a question and an answer. Generates the reverse card as well.",
+            md5("Question & Answer with reverse".encode()).hexdigest(): {
+                "name": "Question & Answer with reverse",
+                "description": "Generates two cards: question -> answer and answer -> question.",
                 "form": dedent("""
                     <label for='question'>Question:</label>
                     <input type='text' name='question' value='{{ question }}'>
@@ -105,7 +105,7 @@ with shelve.open(database) as db:
                         "answer": "{{ question }}",
                     }
                 }
-            }
+            },
         },
     )
 

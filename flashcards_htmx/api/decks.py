@@ -1,7 +1,10 @@
+from typing import Optional
+
 from pathlib import Path
 import shelve
 import json
 from copy import deepcopy
+from hashlib import md5
 
 import starlette.status as status
 from fastapi import APIRouter, Request, Depends, HTTPException, UploadFile, File
@@ -44,13 +47,11 @@ async def decks_search_component(
 
 @router.get("/decks/new", response_class=HTMLResponse)
 async def create_deck_page(render=Depends(template("private/deck.html"))):
-    with shelve.open(database) as db:
-        id = len(db["decks"]) + 1
     return render(
         navbar_title="New Deck",
         deck={"name": "", "description": ""},
         algorithms=ALGORITHMS.keys(),
-        deck_id=id,
+        deck_id=None
     )
 
 
@@ -65,7 +66,11 @@ async def import_deck_endpoint(file: UploadFile):
         contents = await file.read()
         deck = json.loads(contents)
         with shelve.open(database) as db:
-            db["decks"][str(len(db["decks"]) + 1)] = deck
+            deck_id = md5(deck["name"].encode()).hexdigest()
+            if deck_id in db["decks"]:
+                raise HTTPException(status_code=409, detail="Deck with this name already exists")
+            db["decks"][deck_id] = deck
+                
     except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -111,11 +116,14 @@ async def edit_deck_page(deck_id: str, render=Depends(template("private/deck.htm
 
 
 @router.post("/decks/{deck_id}", response_class=RedirectResponse)
-async def save_deck_endpoint(deck_id: str, request: Request):
+async def save_deck_endpoint(request: Request, deck_id: Optional[str] = None):
     async with request.form() as form:
         with shelve.open(database) as db:
-            if not "decks" in db:
-                db["decks"] = {}
+            if not deck_id:
+                deck_id = md5(form["name"].encode()).hexdigest()
+                if deck_id in db["decks"]:
+                    raise HTTPException(status_code=409, detail="Deck with this name already exists")
+
             db["decks"][deck_id] = {
                 **db["decks"].get(deck_id, {"cards": {}}),
                 "name": form["name"],
