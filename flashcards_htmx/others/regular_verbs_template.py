@@ -41,7 +41,7 @@
 
 
 { 
-    "name":  "Clone of Regular Verb PT 🇵🇹 / IT 🇮🇹", 
+    "name":  "Regular Verb PT 🇵🇹 / IT 🇮🇹", 
     "description":  "The same card and its reverse is rendered with a random conjugation of the verb. Produces 2 cards.", 
     "form":  """
         <label for='pt_inf'>PT 🇵🇹 Infinitive</label>
